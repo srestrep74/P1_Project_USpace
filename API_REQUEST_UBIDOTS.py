@@ -1,7 +1,7 @@
 import requests
 import time
 
-TOKEN = "BBFF-yxwyI0o8XzN8YMLoDflTqQbm2AtwYk" # Assign your Ubidots Token
+TOKEN = "Deleted for protection" # Assign your Ubidots Token
 DEVICE = "10521c01f52f" # Assign the device label to obtain the variable
 VARIABLE_1 = "mesa-1" # Assign the variable label to obtain the variable value
 VARIABLE_2 = "mesa-2"
