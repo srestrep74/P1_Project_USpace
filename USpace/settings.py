@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'birzyay0v1nhjnvywaun',  # Replace with your MariaDB database name
         'USER': 'ud03785zpvgrc7vl',  # Replace with your MariaDB database username
-        'PASSWORD': ,  # Replace with your MariaDB database password
+        'PASSWORD': ...,  # Replace with your MariaDB database password
         'HOST': 'birzyay0v1nhjnvywaun-mysql.services.clever-cloud.com',  # Replace with your MariaDB database host
         'PORT': 3306,  # Replace with your MariaDB database port (usually 3306)
     }
