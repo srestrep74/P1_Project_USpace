@@ -1,0 +1,20 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapa con marcadores y etiquetas</title>
+    <!-- Incluir la biblioteca Leaflet (CDN) -->
+    <link rel="stylesheet" href="{% static '/css/map.css' %}" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+</head>
+<body>
+    <!--<div id="map" style="width: 800px; height: 600px;"></div>-->
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+    <button id='btnPool'>Marcar Piscina como ocupada</button>
+    <script src="{% static 'map.js' %}"></script>
+</body>
+</html>
