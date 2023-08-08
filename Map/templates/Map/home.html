@@ -16,5 +16,23 @@
     </div>
     <button id='btnPool'>Marcar Piscina como ocupada</button>
     <script src="{% static 'map.js' %}"></script>
+    <script>
+        var zones = {
+            {% for zone, state in spaces.items %}
+                "{{ zone }}" : {{ state }},
+            {% endfor %}
+        };
+        for(var zone in zones){
+            var state = zones[zone];
+            var iconUrl = state == 1.0 ? 'static/occu.png' : 'static/pin.gif';
+            var icon = L.icon({
+                iconUrl : iconUrl,
+                iconSize : [32,32],
+                iconAnchor : [16,32],
+            });
+            const Coordinates = [6.20128, -75.578756];
+            L.marker(Coordinates, {icon: icon}).addTo(map);
+        };
+    </script>
 </body>
 </html>
