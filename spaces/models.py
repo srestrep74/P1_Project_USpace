@@ -1,16 +1,33 @@
 from django.db import models
+from admins.models import *
+from outh.models import *
 
 
-class Space(models.Model):
-    id = models.AutoField(primary_key=True, editable=False, unique=True)
-    name = models.CharField(max_length=150, blank=False, null=False)
-    description = models.CharField(max_length=500, blank=False, null=False)
-    availability = models.IntegerField(blank=False, null=False)
-    clasification = models.IntegerField(blank=False, null=False)
+class Reminders(models.Model):
+    id = models.IntegerField(primary_key=True, unique=True, editable=False)
+    user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
+    space_id = models.ForeignKey(Spaces, on_delete=models.CASCADE)
+    remember_to = models.DateTimeField()
+
+    def __str__(self):
+        return str(self.id)
 
 
-class OcuppiedSpace(models.Model):
-    id = models.AutoField(primary_key=True, editable=False, unique=True)
-    space_id = models.ForeignKey(Space, on_delete=models.CASCADE)
-    occupied_at = models.DateTimeField(auto_now_add=True)
-    unoccupied_at = models.DateTimeField(auto_now=True)
+class Reviews(models.Model):
+    RATINGS = (
+        (0, 0),
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5)
+    )
+
+    id = models.IntegerField(primary_key=True, unique=True, editable=False)
+    rating = models.IntegerField(choices=RATINGS)
+    user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
+    space_id = models.ForeignKey(Spaces, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=500)
+
+    def __str__(self):
+        return str(self.rating)
