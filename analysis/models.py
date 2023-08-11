@@ -1,9 +1,9 @@
 from django.db import models
-from spaces.models import Spaces
+from spaces.models import *
 
-class OcuppiedSpaces(models.Model):
+class OcuppiedSpace(models.Model):
     id = models.AutoField(primary_key=True, editable=False, unique=True)
-    space_id = models.ForeignKey(Spaces, on_delete=models.CASCADE)
+    space_id = models.ForeignKey(Space, on_delete=models.CASCADE)
     occupied_at = models.DateTimeField(auto_now_add=True)
     unoccupied_at = models.DateTimeField(auto_now=True)
 

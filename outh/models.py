@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class Users(models.Model):
+class User(models.Model):
     id = models.IntegerField(primary_key=True, unique=True, editable=False)
     name = models.CharField(max_length=150)
     password = models.CharField(max_length=150)

@@ -2,5 +2,5 @@ from django.contrib import admin
 from .models import *
 
 
-admin.site.register(Reminders)
-admin.site.register(Reviews)
+admin.site.register(Reminder)
+admin.site.register(Review)
