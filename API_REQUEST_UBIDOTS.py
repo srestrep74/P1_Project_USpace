@@ -19,7 +19,7 @@ def get_var(device, variable):
         pass
 
 
-if __name__ == "__main__":
+def spaces_status():
     while True:
       spaces = {
           "M1" : get_var(DEVICE, VARIABLE_1),
