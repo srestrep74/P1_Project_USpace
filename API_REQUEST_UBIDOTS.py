@@ -1,7 +1,7 @@
 import requests
 import time
 
-TOKEN = "Deleted for protection" # Assign your Ubidots Token
+TOKEN = "Deleted for protection." # Assign your Ubidots Token
 DEVICE = "10521c01f52f" # Assign the device label to obtain the variable
 VARIABLE_1 = "mesa-1" # Assign the variable label to obtain the variable value
 VARIABLE_2 = "mesa-2"
@@ -21,6 +21,9 @@ def get_var(device, variable):
 
 if __name__ == "__main__":
     while True:
-      print(f'Mesa 1: {get_var(DEVICE, VARIABLE_1)}')
-      print(f'Mesa 2: {get_var(DEVICE, VARIABLE_2)}')
+      spaces = {
+          "M1" : get_var(DEVICE, VARIABLE_1),
+          "M2" : get_var(DEVICE, VARIABLE_2)
+      }
+      print(spaces)
       time.sleep(DELAY)
