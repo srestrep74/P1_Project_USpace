@@ -18,7 +18,7 @@
     </div>
     <script src="{% static 'map.js' %}"></script>
     <script>
-        var zones = {
+        /*var zones = {
             {% for zone, state in spaces.items %}
                 "{{ zone }}" : {{ state }},
             {% endfor %}
@@ -35,6 +35,33 @@
             });
             L.marker(Coordinates[i], {icon: icon}).addTo(map);
             i++;
-        };
+        };*/
+        var markers = [];
+        setInterval(function(){
+            $.ajax({
+                url : '{% url "spaces_data" %}',
+                success: function(data) {
+                    for(var j = 0 ; j < markers.length ;j++){
+                        map.removeLayer(markers[j]);
+                    }
+                    markers = [];
+                    var zones = data;
+                    const Coordinates = [[6.1996839,-75.5783955], [6.1986716,-75.5784773]];
+                    let i = 0;
+                    for(var zone in zones){
+                        var state = zones[zone];
+                        var iconUrl = state == 1.0 ? 'static/occu.png' : 'static/pin.gif';
+                        var icon = L.icon({
+                            iconUrl : iconUrl,
+                            iconSize : [32,32],
+                            iconAnchor : [16,32],
+                        });
+                        var marker = L.marker(Coordinates[i], {icon: icon}).addTo(map);
+                        markers.push(marker);
+                        i++;
+                    };
+                }
+            });
+        }, 10000);
     </script>
 </html>
