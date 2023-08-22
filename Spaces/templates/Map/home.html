@@ -23,6 +23,8 @@
                 "{{ zone }}" : {{ state }},
             {% endfor %}
         };
+        const Coordinates = [[6.1996839,-75.5783955], [6.1986716,-75.5784773]];
+        let i = 0;
         for(var zone in zones){
             var state = zones[zone];
             var iconUrl = state == 1.0 ? 'static/occu.png' : 'static/pin.gif';
@@ -31,8 +33,8 @@
                 iconSize : [32,32],
                 iconAnchor : [16,32],
             });
-            const Coordinates = [6.20128, -75.578756];
-            L.marker(Coordinates, {icon: icon}).addTo(map);
+            L.marker(Coordinates[i], {icon: icon}).addTo(map);
+            i++;
         };
     </script>
 </html>
