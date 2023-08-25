@@ -18,20 +18,33 @@
             {% for space in spaces %}
             <div v-for="space in spaces" class="col">
                 <div class="card">
-                    <div class="body-card">
+                    <div class="body-card" style="padding: 10px;">
                         <h5 class="card-title fw-bold">{{ space.name }}</h5>
                         <p class="card-text">{{ space.description }}</p>
                         <p class="card-text">Disponibilidad: {{ space.get_availability_display }}</p>
                         <p class="card-text">Clasificación: {{ space.get_classification_display }}</p>
                         <center>
-                            <button type="submit" class="btn btn-primary">
-                                <a href="{% url 'edit_space' space.id %}" style="color: white; text-decoration: none;">Editar</a>
-                            </button>
+                            <div>
+                                <button type="submit" class="btn btn-primary">
+                                    <a href="{% url 'edit_space' space.id %}" style="color: white; text-decoration: none;">Editar</a>
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <a href="{% url 'delete_space' space.id %}" style="color: white; text-decoration: none;">Eliminar</a>
+                                </button>
+                            </div>
                         </center>
                     </div>
                 </div>
             </div>
             {% endfor %}
+        </div>
+
+        <div class="mb-3" style="margin-top: 50px;">
+            <center>
+                <button type="submit" class="btn btn-primary">
+                    <a href="{% url 'add_space'%}" style="color: white; text-decoration: none;">Añadir espacio</a>
+                </button>
+            </center>
         </div>
     </div>
 </body>

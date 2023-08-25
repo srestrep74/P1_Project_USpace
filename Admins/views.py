@@ -19,7 +19,7 @@ def addSpace(request):
         form = SpaceForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('add_space')
+            return redirect('show_spaces')
     
     else:
         form = SpaceForm()
@@ -43,3 +43,9 @@ def editSpace(request, id):
         error = f'No se ha encontrado un espacio con el ID {id}.'
 
     return render(request, 'edit_space.html', {'space_form': space_form, 'error': error})
+
+
+def deleteSpace(request, id):
+    space = Space.objects.get(id=id)
+    space.delete()
+    return redirect('show_spaces')
