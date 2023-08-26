@@ -8,7 +8,7 @@ from Auth.models import *
 
 class Reminder(models.Model):
     id = models.IntegerField(primary_key=True, unique=True, editable=False)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    #user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     space_id = models.ForeignKey(Space, on_delete=models.CASCADE)
     remember_to = models.DateTimeField()
 
@@ -28,7 +28,7 @@ class Review(models.Model):
 
     id = models.IntegerField(primary_key=True, unique=True, editable=False)
     rating = models.IntegerField(choices=RATINGS)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    #user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     space_id = models.ForeignKey(Space, on_delete=models.CASCADE)
     comment = models.CharField(max_length=500)
 
