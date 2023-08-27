@@ -7,9 +7,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-
-
 from django.contrib.auth.models import User
+
 
 def signupAccount(request):
     if request.method == 'POST':
@@ -27,10 +26,13 @@ def signupAccount(request):
                     return redirect('home')
                 except IntegrityError:
                     return render(request, 'signup.html', {'form': form, 'error': 'Username already taken. Choose a new username.'})
+            
             else:
                 return render(request, 'signup.html', {'form': form, 'error': 'Passwords do not match'})
+        
         else:
             return render(request, 'signup.html', {'form': form})
+    
     else:
         form = UserCreateForm()
         return render(request, 'signup.html', {'form': form})

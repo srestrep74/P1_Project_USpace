@@ -2,39 +2,40 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>USpace</title>
-    <!-- Incluir la biblioteca Leaflet (CDN) -->
-    <link rel="stylesheet" href="{% static '/css/map.css' %}" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <head>
+        <title>USpace</title>
+        <!-- Incluir la biblioteca Leaflet (CDN) -->
+        <link rel="stylesheet" href="{% static '/css/map.css' %}" />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
 
-</head>
-<body>
-    <!--<div id="map" style="width: 800px; height: 600px;"></div>-->
-    <div id="map-container">
-        <div id="map"></div>
-    </div>
-    <script src="{% static 'map.js' %}"></script>
-    <script>
-        var zones = {
-            {% for zone, state in spaces.items %}
-                "{{ zone }}" : {{ state }},
-            {% endfor %}
-        };
-        const Coordinates = [[6.1996839,-75.5783955], [6.1986716,-75.5784773]];
-        let i = 0;
-        for(var zone in zones){
-            var state = zones[zone];
-            var iconUrl = state == 1.0 ? 'static/occu.png' : 'static/pin.gif';
-            var icon = L.icon({
-                iconUrl : iconUrl,
-                iconSize : [32,32],
-                iconAnchor : [16,32],
-            });
-            L.marker(Coordinates[i], {icon: icon}).addTo(map);
-            i++;
-        };
-    </script>
+    <body>
+        <!--<div id="map" style="width: 800px; height: 600px;"></div>-->
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+        <script src="{% static 'map.js' %}"></script>
+        <script>
+            var zones = {
+                {% for zone, state in spaces.items %}
+                    "{{ zone }}" : {{ state }},
+                {% endfor %}
+            };
+            const Coordinates = [[6.1996839,-75.5783955], [6.1986716,-75.5784773]];
+            let i = 0;
+            for(var zone in zones){
+                var state = zones[zone];
+                var iconUrl = state == 1.0 ? 'static/occu.png' : 'static/pin.gif';
+                var icon = L.icon({
+                    iconUrl : iconUrl,
+                    iconSize : [32,32],
+                    iconAnchor : [16,32],
+                });
+                L.marker(Coordinates[i], {icon: icon}).addTo(map);
+                i++;
+            };
+        </script>
+    </body>
 </html>

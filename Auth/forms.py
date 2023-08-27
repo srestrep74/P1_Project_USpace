@@ -5,7 +5,7 @@ from django.forms import EmailField
 
 
 class UserCreateForm(UserCreationForm):
-    email = EmailField(required=True)  # Agregar campo de correo electrónico
+    email = EmailField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(UserCreateForm, self).__init__(*args, **kwargs)

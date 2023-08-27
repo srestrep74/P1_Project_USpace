@@ -60,7 +60,7 @@ ROOT_URLCONF = 'USpace.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'USpace/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'birzyay0v1nhjnvywaun',
         'USER': 'ud03785zpvgrc7vl',
-        'PASSWORD': '',
+        'PASSWORD': 'a40n0YCYBLlPTdts4wln',
         'HOST': 'birzyay0v1nhjnvywaun-mysql.services.clever-cloud.com',
         'PORT': 3306,
     }
