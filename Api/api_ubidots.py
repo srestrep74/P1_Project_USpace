@@ -1,5 +1,4 @@
 import requests
-import time
 
 TOKEN = "BBFF-yxwyI0o8XzN8YMLoDflTqQbm2AtwYk" # Assign your Ubidots Token
 DEVICE = "10521c01f52f" # Assign the device label to obtain the variable

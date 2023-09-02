@@ -1,17 +1,23 @@
-body {
+* {
+    box-sizing: border-box;
+    padding : 0;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
 }
+
+html , body {
+    height : 100%;
+    margin : 0;
+}
+
 #map-container {
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    height : 100%;
+    width: 100%;
 }
+
 #map {
-    width: 800px;
-    height: 600px;
+    height : 100%;
+    width: 100%;
 }

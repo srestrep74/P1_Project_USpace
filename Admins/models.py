@@ -3,7 +3,6 @@ from django.db import models
 # Create your models here.
 from django.db import models
 
-
 class Space(models.Model):
     AVAILABILITY = (
         (0, 'Disponible'),
@@ -20,7 +19,8 @@ class Space(models.Model):
     name = models.CharField(max_length=150, blank=False, null=False)
     description = models.TextField(blank=False, null=False)
     availability = models.IntegerField(blank=False, null=False, choices=AVAILABILITY)
-    clasification = models.IntegerField(blank=False, null=False, choices=CLASIFICATION)
-
+    classification = models.IntegerField(blank=False, null=False, choices=CLASIFICATION)
+    latitude = models.FloatField(null=True)
+    longitude= models.FloatField(null=True)
     def __str__(self):
         return self.name
