@@ -29,7 +29,7 @@
                 <textarea type="text" id="floatingTextarea2" name="description" class="form-control" style="height: 100px">{{ space_form.description.value }}</textarea>
                 <label for="floatingTextarea2">Descripción del espacio</label>
             </div>            
-            
+                
             <div class="form-floating mb-3">
                 <select class="form-select" id="floatingSelect" name="availability">
                     {% for value, label in space_form.fields.availability.choices %}
