@@ -26,6 +26,7 @@ To use this application you must follow the following steps:
         ```
         conda create --name venvname
         ```
+    Replace the `venvname` with a proper name of the virtual environment, such as `USpace`.
 
 3. Install all requirements:
     ```
