@@ -1,5 +1,4 @@
 import requests
-import time
 
 TOKEN = "BBFF-yxwyI0o8XzN8YMLoDflTqQbm2AtwYk" # Assign your Ubidots Token
 DEVICE = "10521c01f52f" # Assign the device label to obtain the variable
@@ -22,7 +21,7 @@ def get_var(device, variable):
 def spaces_status():
     spaces = {
         "M1" : get_var(DEVICE, VARIABLE_1),
-        "M2" :  1#get_var(DEVICE, VARIABLE_2)
+        "M2" :  get_var(DEVICE, VARIABLE_2)
     }
     return spaces
 

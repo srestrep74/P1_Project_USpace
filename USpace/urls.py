@@ -21,5 +21,8 @@ urlpatterns = [
     path('' , include('Spaces.urls')),
     path('' , include('Admins.urls')),
     path('' , include('Auth.urls')),
+<<<<<<< HEAD
     path('', include('Analytics.urls'))
+=======
+>>>>>>> sebas
 ]
