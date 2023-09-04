@@ -9,7 +9,7 @@
     </head>
 
     <body>
-        <form method="POST">
+        <form method="POST" style="margin: 100px;">
             {% csrf_token %}
     
             <div style="margin-bottom: 30px;" class="text-center">
@@ -20,32 +20,32 @@
                 <p>Llene todas las casillas.</p>
             </div>
     
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">Nombre del espacio</span>
-                <input type="text" id="name" name="name" class="form-control">
+            <div class="form-floating mb-3">
+                <input type="text" id="floating-input" name="name" class="form-control">
+                <label for="floatingInput">Nombre del espacio</label>
             </div>
             
-            <div class="input-group mb-3">
-                <span class="input-group-text" id="inputGroup-sizing-default">Descripción del espacio</span>
-                <input type="text" id="description" name="description" class="form-control">
+            <div class="form-floating mb-3">
+                <textarea type="text" id="floatingTextarea2" name="description" class="form-control" style="height: 100px"></textarea>
+                <label for="floatingTextarea2">Descripción del espacio</label>
             </div>            
             
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="availability">Disponibilidad</label>
-                <select class="form-select" id="availability" name="availability">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect" name="availability">
                     {% for value, label in form.fields.availability.choices %}
                         <option value="{{ value }}">{{ label }}</option>
                     {% endfor %}
                 </select>
+                <label for="floatingSelect">Disponibilidad</label>
             </div>
 
-            <div class="input-group mb-3">
-                <label class="input-group-text" for="classification">Clasificación</label>
-                <select class="form-select" id="classification" name="classification">
+            <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect" name="classification">
                     {% for value, label in form.fields.classification.choices %}
                         <option value="{{ value }}">{{ label }}</option>
                     {% endfor %}
                 </select>
+                <label for="floatingSelect">Clasificación</label>
             </div>            
     
             <div style="margin-bottom: 5px;">
