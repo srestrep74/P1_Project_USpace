@@ -21,4 +21,5 @@ urlpatterns = [
     path('' , include('Spaces.urls')),
     path('' , include('Admins.urls')),
     path('' , include('Auth.urls')),
+    path('', include('Analytics.urls'))
 ]
