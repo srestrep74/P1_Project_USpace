@@ -22,5 +22,6 @@ class Space(models.Model):
     classification = models.IntegerField(blank=False, null=False, choices=CLASIFICATION)
     latitude = models.FloatField(null=True)
     longitude= models.FloatField(null=True)
+    image = models.ImageField(null=True)
     def __str__(self):
         return self.name

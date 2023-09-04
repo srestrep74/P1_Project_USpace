@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from Api.api_ubidots import spaces_status
 from django.http import JsonResponse
 from Admins.models import Space
 from django.core import serializers
 import json
+
 
 def home(request):
     return render(request , 'Map/home.html' )

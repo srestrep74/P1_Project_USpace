@@ -34,3 +34,7 @@ class Review(models.Model):
 
     def __str__(self):
         return str(self.rating)
+
+class Rating(models.Model):
+    value = models.PositiveIntegerField()
+

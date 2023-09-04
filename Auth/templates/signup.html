@@ -1,31 +1,26 @@
 {% extends 'base.html' %}
-{% block content %}
-<div class="box">
-    <div class="container">
-        <div class="top-header">
-            <span>Have an account?</span>
-            <header>Login</header>
-        </div>
-        <div class="input-field">
-            <input type="text" class="input" placeholder="Username" required>
-            <i class="bx bx-user"></i>
-        </div>
-        <div class="input-field">
-            <input type="password" class="input" placeholder="Password" required>
-            <i class="bx bx-lock-alt"></i>
-        </div>
-        <div class="input-field">
-            <input type="submit" class="submit" value="Login">
-        </div>
-        <div class="bottom">
-            <div class="left">
-                <input type="checkbox"  id="check">
-                <label for="check"> Remember Me</label>
-            </div>
-            <div class="right">
-                <label><a href="#">Forgot password?</a></label>
+    {% block content %}
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div>
+                    <div class="card-body">
+                        <h2 class="card-title">Crear cuenta</h2>
+                        {% if error %}
+                            <div class="alert alert-danger mt-3" role="alert">
+                                {{ error }}
+                            </div>
+                        {% endif %}               
+                        <p class="card-text">
+                            <form method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button type="submit" class="btn btn-primary">
+                                   Confirmar
+                                </button>
+                            </form>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-  {% endblock content %}
+    {% endblock content %}
