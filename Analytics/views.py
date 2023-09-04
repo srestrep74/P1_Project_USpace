@@ -43,7 +43,9 @@ def occupancy(total, occupied):
 
 
 def occupation_by_hours(dat):
-    date = datetime.strptime(dat, "%Y-%m-%d")
+
+    date = str(dat)
+    date = datetime.strptime(date, "%Y-%m-%d")
 
     occupation_hours = [0]*19
 
