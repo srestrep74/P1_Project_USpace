@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Análisis de datos</title>  
+</head>
+<body>
+
+
+    <h1>Ocupaciones Actuales</h1>
+    
+    
+    <div class="chart-container">
+        <h2>Ocupación de restaurantes</h2>
+        <img src="data:current_graph_restaurants/png;base64,{{ current_graph_restaurants }}" alt="Occupancy for Restaurants">
+        <h3>Mesas de restaurantes : {{ current_occupation_restaurants }} / 500</h3>
+    </div>
+    
+    <div class="chart-container">
+        <h2>Ocupación de espacios deportivos</h2>
+        <img src="data:current_graph_sports/png;base64,{{ current_graph_sports }}" alt="Occupancy for Sports">
+        <h3>Escenarios deportivos : {{ current_occupation_sports }} / 20</h3>
+    </div>
+    
+    <div class="chart-container">
+        <h2>Ocupación de zonas de descanso</h2>
+        <img src="data:current_graph_relax/png;base64,{{ current_graph_relax }}" alt="Occupancy for Relaxation Areas">
+        <h3>Zonas de descanso : {{ current_occupation_relax}} / 80</h3>
+    </div>
+
+
+    <h1>Filtro por espacio individual </h1>
+    <form method="get">
+        {{filter.form}}
+
+    <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+
+
+    <h2>Numero de veces ocupado : {{ spaces }}</h2>
+
+
+
+    <h1>Top 5 espacios mas usados</h1>
+    
+    
+    <div class="chart-container">
+        <h2>Mesas</h2>
+        <img src="data:most_used_restaurants/png;base64,{{ most_used_restaurants }}" alt="Restaurants">
+    </div>
+    
+    <div class="chart-container">
+        <h2>Espacios deportivos</h2>
+        <img src="data:most_used_sports/png;base64,{{ most_used_sports }}" alt="Sports">
+    </div>
+    
+    <div class="chart-container">
+        <h2>Zonas de descanso</h2>
+        <img src="data:most_used_relax/png;base64,{{ most_used_relax }}" alt="Areas">
+    </div>
+
+
+</body>
+</html>
