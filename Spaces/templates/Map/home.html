@@ -1,0 +1,44 @@
+{% include 'navbar.html' %}
+{% load static %}
+{% block content %}
+    <!--<div id="map" style="width: 800px; height: 600px;"></div>-->
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+    <script src="{% static 'map.js' %}"></script>
+    <script>
+        var markers = [];
+        //var spaces = JSON.parse("{{spaces|escapejs}}");
+        //console.log(spaces);
+        setInterval(function(){
+            $.ajax({
+                url : '{% url "spaces_data" %}',
+                success: function(data) {
+                    for(var j = 0 ; j < markers.length ;j++){
+                        map.removeLayer(markers[j]);
+                    }
+                    markers = [];
+                    var spaces = JSON.parse(data);
+                    //const Coordinates = [[6.1996839,-75.5783955], [6.1986716,-75.5784773]];
+                    //const Coordinates = {{coords}};
+                    for(var space in spaces){
+                        var state = spaces[space]["availability"];
+                        var iconUrl = state == 1 ? 'static/images/occu.png' : 'static/images/pin.gif';
+                        var icon = L.icon({
+                            iconUrl : iconUrl,
+                            iconSize : [32,32],
+                            iconAnchor : [16,32],
+                        });
+                        var marker = L.marker([spaces[space]["latitude"], spaces[space]["longitude"]], {icon: icon}).addTo(map);
+                        var spaceId = spaces[space]["id"];
+                        var url = "{% url 'space_info' 0 %}".replace('0', spaceId);
+                        var popupContent = "<h3>" + spaces[space]['name'] + "</h3> <a href='" + url + "'>Ver mas Informacion</a>";
+                        marker.bindPopup(popupContent);
+                        markers.push(marker);
+                    };
+                }
+            });
+        }, 5000);
+</script>
+{% endblock content %}
+

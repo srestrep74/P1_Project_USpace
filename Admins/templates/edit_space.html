@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Edit Space</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pzjw6s2aystz7hdfkt3v0d/4l9u4v4zmrnsmnyd9jhpzvp90wpgfnh7u8fn+a/d" crossorigin="anonymous"></script>
+    </head>
+
+    <body>
+        <form method="POST" style="margin: 100px;">
+            {% csrf_token %}
+    
+            <div style="margin-bottom: 30px;" class="text-center">
+                <h2>Editar Espacio</h2>
+            </div>
+    
+            <div style="margin-bottom: 15px;">
+                <p>Escriba en los espacios que quiere editar.</p>
+            </div>
+    
+            <div class="form-floating mb-3">
+                <input type="text" id="floating-input" name="name" class="form-control" value="{{ space_form.name.value }}">
+                <label for="floatingInput">Nombre del espacio</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <textarea type="text" id="floatingTextarea2" name="description" class="form-control" style="height: 100px">{{ space_form.description.value }}</textarea>
+                <label for="floatingTextarea2">Descripción del espacio</label>
+            </div>            
+            
+            <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect" name="availability">
+                    {% for value, label in space_form.fields.availability.choices %}
+                        <option value="{{ value }}" {% if value == space_form.instance.availability %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>
+                <label for="floatingSelect">Disponibilidad</label>
+            </div>
+            
+            <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect" name="classification">
+                    {% for value, label in space_form.fields.classification.choices %}
+                        <option value="{{ value }}" {% if value == space_form.instance.classification %}selected{% endif %}>{{ label }}</option>
+                    {% endfor %}
+                </select>     
+                <label for="floatingSelect">Clasificación</label>       
+            </div>
+
+            <div style="margin-bottom: 5px;">
+                <center>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </center>
+            </div>
+    
+        </form>
+    </body>
+</html>
