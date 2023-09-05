@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from Admins.models import *
 from Auth.models import *
 
@@ -11,7 +8,7 @@ class Reminder(models.Model):
     #user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     space_id = models.ForeignKey(Space, on_delete=models.CASCADE)
     remember_to = models.DateTimeField()
-
+    atributo = models.CharField(max_length=45)
     def __str__(self):
         return str(self.id)
 
@@ -31,6 +28,11 @@ class Review(models.Model):
     #user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     space_id = models.ForeignKey(Space, on_delete=models.CASCADE)
     comment = models.CharField(max_length=500)
+    create_date = models.DateField(auto_now=True)
 
     def __str__(self):
         return str(self.rating)
+
+
+class Rating(models.Model):
+    value = models.PositiveIntegerField()

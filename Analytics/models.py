@@ -1,5 +1,6 @@
 from django.db import models
 from Spaces.models import *
+from Admins.models import *
 
 
 class OcuppiedSpace(models.Model):

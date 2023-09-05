@@ -43,4 +43,4 @@ To use this application you must follow the following steps:
     python manage.py runserver
     ```
 
-5. You will see in your console a link starting with `https://`. You must copy that link into your browser and then you can start using USpace.
+6. You will see in your console a link starting with `https://`. You must copy that link into your browser and then you can start using USpace.

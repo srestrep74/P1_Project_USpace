@@ -5,4 +5,4 @@ from .models import *
 class SpaceForm(forms.ModelForm):
     class Meta:
         model = Space
-        fields = ('name', 'description', 'availability', 'classification')
+        fields = '__all__'

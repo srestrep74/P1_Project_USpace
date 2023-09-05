@@ -22,9 +22,6 @@ def get_var(device, variable):
 def spaces_status():
     spaces = {
         "M1" : get_var(DEVICE, VARIABLE_1),
-        "M2" :  1#get_var(DEVICE, VARIABLE_2)
+        "M2" :  get_var(DEVICE, VARIABLE_2)
     }
     return spaces
-
-
-    
