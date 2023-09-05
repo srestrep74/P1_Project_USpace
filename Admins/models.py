@@ -14,6 +14,7 @@ class Space(models.Model):
         (1, 'Mesa de restaurante'),
         (2, 'Zona de descanso')
     )
+    
     id = models.AutoField(primary_key=True, editable=False, unique=True)
     name = models.CharField(max_length=150, blank=False, null=False)
     description = models.TextField(blank=False, null=False)

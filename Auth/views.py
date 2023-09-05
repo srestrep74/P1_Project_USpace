@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import UserCreateForm
+from .forms import user_form
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -7,13 +7,14 @@ from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import redirect
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, auth
 from django.contrib import messages
+from .models import *
+from django.contrib.auth.models import Group 
 from Admins.models import Space
 from django.http import HttpResponse
 from django.db.models import Q
 from .models import *
-from django.contrib.auth.models import Group 
 
 
 def searchSpaces(request):

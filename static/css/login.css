@@ -3,18 +3,21 @@
 *{
     font-family: 'Poppins', sans serif;
 }
+
 .box{
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 90vh;
 }
+
 .container{
     width: 350px;
     display: flex;
     flex-direction: column;
     padding: 0 15px 0 15px;
 }
+
 .span{
     color: #fff;
     font-size: small;
@@ -27,6 +30,7 @@
     display: flex;
     flex-direction: column;
 }
+
 .input-field .input{
     height: 45px;
     width: 87%;
@@ -36,16 +40,12 @@
     color: #fff;
     padding: 0 0 0 42px;
     background: rgba(255,255,255,0.1);
-}
-i{
-    position: relative;
-    top: -31px;
-    left: 17px;
-    color: #fff;
-}
+}   
+
 ::-webkit-input-placeholder{
     color: #fff;
 }
+
 .submit{
     border: none;
     border-radius: 30px;
@@ -57,6 +57,7 @@ i{
     cursor: pointer;
     transition: .3s;
 }
+
 .submit:hover{
     box-shadow: 1px 5px 7px 1px rgba(0, 0, 0, 0.2);
 }
