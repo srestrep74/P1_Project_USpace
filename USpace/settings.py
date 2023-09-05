@@ -84,7 +84,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'birzyay0v1nhjnvywaun',
         'USER': 'ud03785zpvgrc7vl',
-        'PASSWORD': ,
+        'PASSWORD': 'a40n0YCYBLlPTdts4wln',
         'HOST': 'birzyay0v1nhjnvywaun-mysql.services.clever-cloud.com',
         'PORT': 3306,
     }
