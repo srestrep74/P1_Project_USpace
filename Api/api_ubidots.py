@@ -24,6 +24,3 @@ def spaces_status():
         "M2" :  get_var(DEVICE, VARIABLE_2)
     }
     return spaces
-
-
-    

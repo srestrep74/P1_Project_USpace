@@ -4,10 +4,13 @@ from django.http import JsonResponse
 from Admins.models import Space
 from django.core import serializers
 import json
+from .models import Review
+from .forms import comment_form
 
 
 def home(request):
     return render(request , 'Map/home.html' )
+
 
 def spaces_data(request):
     spaces = Space.objects.all()
@@ -26,6 +29,15 @@ def spaces_data(request):
     json_spaces = json.dumps(json_spaces)
     return JsonResponse(json_spaces, safe=False)
 
+
 def space_info(request, pk):
     space = Space.objects.get(id=pk)
-    return render(request, "Map/space.html" , {'space':space})
+    form = comment_form()
+    if request.method == 'POST':
+        rating = 0
+        space_id = pk
+        user_id = request.user.id
+        comment = request.POST.get('comment')
+        print(comment)
+
+    return render(request, "Map/space.html" , {'space':space, 'form' : form})

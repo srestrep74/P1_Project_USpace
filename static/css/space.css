@@ -8,4 +8,72 @@
 
 #cont {
     height: 100%;
+<<<<<<< HEAD
+=======
+}
+.container_ac {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+.occu_actual {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* Espacio entre las imágenes */
+}
+
+.image-container {
+    flex: 0 0 calc(33.3333% - 20px); /* 33.3333% para tres columnas con 20px de espacio entre ellas */
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Espacio entre las filas de imágenes */
+}
+
+.occu_actual2{
+    /*display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;*/
+    flex : flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+
+.chart-container img{
+    max-width: 100%;
+    display:block;
+    margin-bottom: 10px;
+    height: auto;
+}
+
+.content{
+    flex:2;
+    /*padding:10px;*/
+}
+
+.custom-form {
+    margin: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.custom-form label {
+    display : flex;
+    flex-wrap: wrap;
+}
+
+.custom-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+>>>>>>> juan
 }

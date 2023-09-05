@@ -4,3 +4,4 @@ from .models import *
 
 admin.site.register(Reminder)
 admin.site.register(Review)
+admin.site.register(Rating)
