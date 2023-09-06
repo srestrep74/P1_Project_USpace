@@ -15,6 +15,7 @@ from Admins.models import Space
 from django.http import HttpResponse
 from django.db.models import Q
 from .models import *
+from .decorators import *
 
 
 def searchSpaces(request):
@@ -52,41 +53,13 @@ def searchSpaces(request):
     return render(request, 'searching.html', {'searchTerm': searchTerm, 'spaces': spaces})
 
 
-def signupAccount(request):
-    if request.method == 'POST':
-        form = UserCreateForm(request.POST)
-        if form.is_valid():
-            if form.cleaned_data['password1'] == form.cleaned_data['password2']:
-                try:
-                    user = User.objects.create_user(
-                        username=form.cleaned_data['username'],
-                        password=form.cleaned_data['password1'],
-                        email=form.cleaned_data['email']
-                    )
-                    user.save()
-                    login(request, user)
-                    return redirect('home')
-                except IntegrityError:
-                    return render(request, 'signup.html', {'form': form, 'error': 'Username already taken. Choose a new username.'})
-            
-            else:
-                return render(request, 'signup.html', {'form': form, 'error': 'Passwords do not match'})
-        
-        else:
-            return render(request, 'signup.html', {'form': form})
-    
-    else:
-        form = UserCreateForm()
-        return render(request, 'signup.html', {'form': form})
-
-
 @login_required       
 def logoutAccount(request):
     logout(request)
     return redirect('home')
 
-
-def loginAccount(request):
+@unauthenticated_user
+def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -99,7 +72,7 @@ def loginAccount(request):
             return redirect('login')
     return render(request, 'login.html')
 
-
+@unauthenticated_user
 def register(request):
     form = user_form()
     if request.method == 'POST':

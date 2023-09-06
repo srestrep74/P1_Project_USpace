@@ -7,24 +7,6 @@ from io import BytesIO
 import base64
 import matplotlib.pyplot as plt
 from collections import defaultdict
-<<<<<<< HEAD
-
-
-from Analytics.models import OcuppiedSpace
-from Admins.models import Space
-
-
-
-def occupancy(total, occupied):
-    # Occupancy data
-    total_places = total
-    occupied_places = occupied
-
-    # Calculate occupancy percentage
-    occupancy_percentage = (occupied_places / total_places) * 100
-
-    # Create a pie chart
-=======
 from django.http import HttpResponse
 from Analytics.models import OcuppiedSpace
 from Admins.models import Space
@@ -38,7 +20,6 @@ def occupancy(total, occupied):
     occupancy_percentage = (occupied_places / total_places) * 100
 
     
->>>>>>> juan
     labels = ['Ocupado', 'Disponible']
     sizes = [occupancy_percentage, 100 - occupancy_percentage]
     colors = ['lightcoral', 'lightskyblue']
@@ -47,26 +28,11 @@ def occupancy(total, occupied):
     ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
     ax.axis('equal')  # Ensure the chart is a circle.
 
-<<<<<<< HEAD
-    # Convert the chart to a BytesIO object
-=======
->>>>>>> juan
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
     plt.close()
 
-<<<<<<< HEAD
-    # Encode the image in base64
-    image_base64 = base64.b64encode(buffer.read()).decode()
-
-    # Render the template with the image
-    return image_base64
-
-
-def occupation_by_hours():
-    date = datetime(year = 2023, month=8, day = 28)
-=======
     image_base64 = base64.b64encode(buffer.read()).decode()
 
     return image_base64
@@ -76,25 +42,10 @@ def occupation_by_hours(dat):
 
     date = str(dat)
     date = datetime.strptime(date, "%Y-%m-%d")
->>>>>>> juan
 
     occupation_hours = [0]*19
 
     current_hour = datetime(year=date.year, month=date.month, day=date.day, hour=5, minute=0, second=0)
-<<<<<<< HEAD
-    final_hour = time(hour=23, minute=0, second=0)
-    delta = timedelta(hours=1)
-    spaces = OcuppiedSpace.objects.all()
-    counter = 0
-
-    while current_hour < final_hour:
-        next_hour = current_hour + delta
-
-        ocupation = spaces.filter(
-            space_id__occupied_at__date=date,
-            space_id__occupied_at__time__gte=current_hour,
-            space_id__occupied_at__time__lt=next_hour
-=======
     delta = timedelta(hours=1)
     counter = 0
 
@@ -105,7 +56,6 @@ def occupation_by_hours(dat):
             occupied_at__date=date,
             occupied_at__time__gte=current_hour.time(),
             occupied_at__time__lt=next_hour.time()
->>>>>>> juan
         ).count()
 
         occupation_hours[counter] = ocupation
@@ -113,9 +63,6 @@ def occupation_by_hours(dat):
 
         current_hour = next_hour
 
-<<<<<<< HEAD
-    return occupation_by_hours
-=======
 
     start_time = datetime.strptime('05:00 AM', '%I:%M %p').time()
     counter = 0
@@ -146,7 +93,6 @@ def occupation_by_hours(dat):
 
     return image_base64
 
->>>>>>> juan
 
     
 
@@ -180,10 +126,6 @@ def most_used_space(type_space, start_time, end_time, top=5):
 
     most_used_spaces = Space.objects.filter(id__in=[item['space_id'] for item in most_used_space_ids], classification=type_space).order_by('id')
 
-<<<<<<< HEAD
-    # Crear un diccionario para almacenar las horas por espacio
-=======
->>>>>>> juan
     space_hours = defaultdict(float)
 
     for item in most_used_space_ids:
@@ -191,10 +133,6 @@ def most_used_space(type_space, start_time, end_time, top=5):
         total_hours = item['total_hours'].total_seconds() / 3600  # Convertir a horas
         space_hours[space_id] = total_hours
 
-<<<<<<< HEAD
-    # Crear un gráfico de barras para mostrar las horas por espacio
-=======
->>>>>>> juan
     space_names = [space.name for space in most_used_spaces]
     hours = [space_hours[space.id] for space in most_used_spaces]
 
@@ -215,12 +153,6 @@ def most_used_space(type_space, start_time, end_time, top=5):
 
 def info(request):
 
-<<<<<<< HEAD
-    print(occupation_by_hours())
-    #Filter by each space
-
-=======
->>>>>>> juan
     spaces = OcuppiedSpace.objects.all()
     
     myFilter = OccupiedSpaceFilter(request.GET, queryset=spaces)
@@ -230,11 +162,6 @@ def info(request):
     space_frequencies = spaces.count()
 
 
-<<<<<<< HEAD
-    #Time
-    start_date = datetime(2023, 8, 28)  # Fecha de inicio que el usuario elija
-    end_date = datetime(2023, 8, 30)  # Fecha de fin que el usuario elija
-=======
     if request.method == 'POST':
         user_date = request.POST.get('date', None)
 
@@ -250,7 +177,6 @@ def info(request):
     
     end_date = (datetime.now()  + timedelta(days=1)).date()
 
->>>>>>> juan
 
     currents = current_occupation()
     context = {
@@ -265,11 +191,6 @@ def info(request):
         'current_graph_sports': occupancy(20,currents[0]),
         'current_graph_restaurants': occupancy(500, currents[1]),
         'current_graph_relax': occupancy(80, currents[2]),
-<<<<<<< HEAD
-    }
-    return render(request, 'data.html', context)
-=======
         'occupation_by_hours' : occupation_by_hours(start_date)
     }
     return render(request, 'data.html', context)
->>>>>>> juan
