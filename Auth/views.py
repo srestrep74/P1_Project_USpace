@@ -56,7 +56,7 @@ def searchSpaces(request):
 @login_required       
 def logoutAccount(request):
     logout(request)
-    return redirect('home')
+    return redirect('home_user')
 
 @unauthenticated_user
 def login(request):

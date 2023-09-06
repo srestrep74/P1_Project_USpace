@@ -6,11 +6,12 @@ from django.core import serializers
 import json
 from .models import Review
 from .forms import comment_form
+from Auth.decorators import *
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
-    return render(request , 'Map/home.html' )
-
+    return render(request , 'Map/home_user.html' )
 
 def spaces_data(request):
     spaces = Space.objects.all()
