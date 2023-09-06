@@ -42,27 +42,30 @@ def occupation_by_hours(dat):
 
     date = str(dat)
     date = datetime.strptime(date, "%Y-%m-%d")
+    occupation_hours= [0]*24
 
-    occupation_hours = [0]*19
+    start_time = datetime(year=date.year, month=date.month, day=date.day, hour=5, minute=0, second=0)
 
-    current_hour = datetime(year=date.year, month=date.month, day=date.day, hour=5, minute=0, second=0)
-    delta = timedelta(hours=1)
-    counter = 0
+    end_time = start_time + timedelta(hours=19)
 
-    while counter < 19:
-        next_hour = current_hour + delta
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time
+    )
 
-        ocupation = OcuppiedSpace.objects.filter(
-            occupied_at__date=date,
-            occupied_at__time__gte=current_hour.time(),
-            occupied_at__time__lt=next_hour.time()
-        ).count()
 
-        occupation_hours[counter] = ocupation
-        counter +=1
+    print(occupied_spaces.count())
 
-        current_hour = next_hour
+    for space in occupied_spaces:
+        first_hour = int(space.occupied_at.hour)
+        last_hour = int(space.unoccupied_at.hour)
 
+        while first_hour <=last_hour:
+            occupation_hours[first_hour] =occupation_hours[first_hour] +1
+            first_hour += 1
+
+    occupation_hours = occupation_hours[5:25]
+    print(occupation_hours)
 
     start_time = datetime.strptime('05:00 AM', '%I:%M %p').time()
     counter = 0
@@ -92,7 +95,6 @@ def occupation_by_hours(dat):
     image_base64 = base64.b64encode(buffer.read()).decode()
 
     return image_base64
-
 
     
 
