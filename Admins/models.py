@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-from django.db import models
 
 class Space(models.Model):
     AVAILABILITY = (
@@ -22,7 +20,7 @@ class Space(models.Model):
     classification = models.IntegerField(blank=False, null=False, choices=CLASSIFICATION)
     latitude = models.FloatField(null=True)
     longitude= models.FloatField(null=True)
-    image = models.ImageField(null=True)
+    image = models.ImageField(upload_to='spaces/images', null=False, default='piscina.jpg')
     
     def __str__(self):
         return self.name

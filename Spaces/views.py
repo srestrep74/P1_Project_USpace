@@ -14,6 +14,7 @@ from Auth.models import *
 def home(request):
     return render(request , 'Map/home_user.html' )
 
+
 def spaces_data(request):
     spaces = Space.objects.all()
     json_spaces = {}

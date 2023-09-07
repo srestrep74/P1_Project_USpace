@@ -1,6 +1,6 @@
 {% include 'navbar.html' %}
 {% block content %}
-    <form method="POST" style="margin: 20px 150px;">
+    <form method="POST" enctype="multipart/form-data" style="margin: 20px 150px;">
         {% csrf_token %}
     
         <div style="margin-bottom: 30px;" class="text-center">
@@ -47,6 +47,11 @@
                     <option value="{{ value }}">{{ label }}</option>
                 {% endfor %}
             </select>       
+        </div>
+
+        <div class="mb-6">
+            <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Imagen del espacio</label>
+            <input type="file" id="image" name="image" accept="image/*" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
         </div>
 
         <div style="margin-bottom: 5px;">

@@ -16,9 +16,12 @@ def viewSpaces(request):
 
 def addSpace(request):
     if request.method == 'POST':
-        form = SpaceForm(request.POST)
+        form = SpaceForm(request.POST, request.FILES)  # Añade request.FILES
         if form.is_valid():
-            form.save()
+            space = form.save(commit=False)
+            if 'image' in request.FILES:
+                space.image = request.FILES['image']
+            space.save()
             return redirect('show_spaces')
     
     else:
@@ -31,13 +34,13 @@ def editSpace(request, id):
     space_form, error = None, None
     try:
         space = Space.objects.get(id=id)
-        if request.method == 'GET':
-            space_form = SpaceForm(instance=space)
-        else:
-            space_form = SpaceForm(request.POST, instance=space)
+        if request.method == 'POST':
+            space_form = SpaceForm(request.POST, request.FILES, instance=space)
             if space_form.is_valid():
                 space_form.save()
                 return redirect('show_spaces')
+        else:
+            space_form = SpaceForm(instance=space)
 
     except ObjectDoesNotExist as e:
         error = f'No se ha encontrado un espacio con el ID {id}.'

@@ -58,6 +58,7 @@ def logoutAccount(request):
     logout(request)
     return redirect('home')
 
+
 @unauthenticated_user
 def login(request):
     if request.method == 'POST':
@@ -71,6 +72,7 @@ def login(request):
             messages.info(request, 'Usuario o contrasena son incorrectos')
             return redirect('login')
     return render(request, 'login.html')
+
 
 @unauthenticated_user
 def register(request):
