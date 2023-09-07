@@ -18,6 +18,8 @@ from .models import *
 from .decorators import *
 
 
+from django.db.models import Q
+
 def searchSpaces(request):
     searchTerm = request.GET.get('searchSpace')
     selected_filters_list = request.GET.getlist('filter')
@@ -29,12 +31,15 @@ def searchSpaces(request):
     response = HttpResponse(render(request, 'searching.html', {'searchTerm': searchTerm}))
     response.set_cookie('selectedFilters', selected_filters)
 
+    # Inicializa una consulta vacía
+    query = Q()
+
     if searchTerm:
-        spaces = Space.objects.filter(name__icontains=searchTerm)
-    else:
-        spaces = Space.objects.all()
+        # Agrega la condición de búsqueda a la consulta
+        query &= Q(name__icontains=searchTerm)
 
     if selected_filters_list:
+        # Agrega las condiciones de filtro a la consulta
         filter_q = Q()
         for filter_value in selected_filters_list:
             if filter_value == 'Disponible':
@@ -48,7 +53,10 @@ def searchSpaces(request):
             elif filter_value == 'Mesa de restaurante':
                 filter_q &= Q(classification=1)
 
-        spaces = spaces.filter(filter_q)
+        query &= filter_q
+
+    # Ejecuta la consulta combinada
+    spaces = Space.objects.filter(query)
 
     return render(request, 'searching.html', {'searchTerm': searchTerm, 'spaces': spaces})
 
