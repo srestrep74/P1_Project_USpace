@@ -1,13 +1,14 @@
 from django.shortcuts import render , redirect
-from Api.api_ubidots import spaces_status
 from django.http import JsonResponse
 from Admins.models import Space
 from django.core import serializers
 import json
-from .models import Review
+from .models import Comment, Reminder
 from .forms import comment_form
 from Auth.decorators import *
 from django.contrib.auth.decorators import login_required
+from django.views.generic import DetailView
+from Auth.models import *
 
 
 def home(request):
@@ -33,12 +34,20 @@ def spaces_data(request):
 
 def space_info(request, pk):
     space = Space.objects.get(id=pk)
-    form = comment_form()
+    comments = Comment.objects.all()
     if request.method == 'POST':
         rating = 0
-        space_id = pk
-        user_id = request.user.id
+        user = request.user
         comment = request.POST.get('comment')
+        rev = Comment(
+            rating = rating,
+            space = space,
+            comment = comment,
+            user = user
+        ) 
+        rev.save()
         print(comment)
+        return redirect("/")
 
-    return render(request, "Map/space.html" , {'space':space, 'form' : form})
+    return render(request, "Map/space.html" , {'space':space, 'comments':comments})
+

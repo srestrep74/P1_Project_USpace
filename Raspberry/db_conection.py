@@ -1,6 +1,6 @@
 import MySQLdb
 
-db = MySQLdb.connect('birzyay0v1nhjnvywaun-mysql.services.clever-cloud.com', 'ud03785zpvgrc7vl', '', 'birzyay0v1nhjnvywaun')
+db = MySQLdb.connect('birzyay0v1nhjnvywaun-mysql.services.clever-cloud.com', 'ud03785zpvgrc7vl', 'a40n0YCYBLlPTdts4wln', 'birzyay0v1nhjnvywaun')
 
 cur = db.cursor()
 insertions = {}
@@ -21,6 +21,7 @@ while True:
             inserted_id = cur.lastrowid
             print(f"Se insertó un nuevo registro con ID: {inserted_id}")
             insertions[id] = inserted_id
+            
         elif availability == 1 and signal == 0:
             cur.execute(f"UPDATE Admins_space SET availability='0' WHERE id={id}")
             cur.execute(f"UPDATE Analytics_ocuppiedspace SET unoccupied_at=NOW() WHERE id={insertions[id]}")

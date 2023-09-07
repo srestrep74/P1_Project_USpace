@@ -12,7 +12,7 @@ class Reminder(models.Model):
         return str(self.id)
 
 
-class Review(models.Model):
+class Comment(models.Model):
     RATINGS = (
         (0, 0),
         (1, 1),
@@ -21,13 +21,11 @@ class Review(models.Model):
         (4, 4),
         (5, 5)
     )
-
-    id = models.IntegerField(primary_key=True, unique=True, editable=False)
     rating = models.IntegerField(choices=RATINGS)
-    #user_id = models.ForeignKey(User, on_delete=models.CASCADE)
-    space_id = models.ForeignKey(Space, on_delete=models.CASCADE)
+    space = models.ForeignKey(Space,null=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,null=True, on_delete=models.CASCADE )
     comment = models.CharField(max_length=500)
-    create_date = models.DateField(auto_now=True)
+    create_date = models.DateField(null=True,auto_now_add=True)
 
     def __str__(self):
         return str(self.rating)

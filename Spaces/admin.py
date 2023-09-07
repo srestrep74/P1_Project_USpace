@@ -3,5 +3,5 @@ from .models import *
 
 
 admin.site.register(Reminder)
-admin.site.register(Review)
+admin.site.register(Comment)
 admin.site.register(Rating)

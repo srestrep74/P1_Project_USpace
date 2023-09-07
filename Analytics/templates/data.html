@@ -2,12 +2,6 @@
 {%load static %}
 <hr>
 <br>
-<div class="image-container">
-    <h6 class="text-4xl font-extrabold dark:text-white">Ocupacion por hora</h6>
-
-        <img class="h-auto max-w-full rounded-lg" src="data:occupation_by_hours/png;base64,{{ occupation_by_hours }}" alt="image description">
-
-
 <div class='container_ac'> 
   <h6 class="text-4xl font-extrabold dark:text-white">Ocupaciones Actuales</h6>
   <div class='occu_actual'>
@@ -35,6 +29,22 @@
 </div>
 <hr>
 <br>
+<div class='container_ac'><h6 class="text-4xl font-extrabold dark:text-white">Ocupaciones por Hora</h6></div>
+<!--<div class="image-container">
+    <figure class="max-w-lg">
+        <img class="h-auto max-w-full rounded-lg" src="data:occupation_by_hours/png;base64,{{ occupation_by_hours }}" alt="image description">
+        <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Mesas de restaurantes : {{ current_occupation_restaurants }}</figcaption>
+    </figure>
+</div>-->
+<div class="image-container flex items-center justify-center">
+    <figure class="max-w-lg">
+        <img class="w-full h-auto rounded-lg" src="data:occupation_by_hours/png;base64,{{ occupation_by_hours }}" alt="image description">
+        <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+</div>
+
+<hr>
+<br>
 <div class='container_ac'><h6 class="text-4xl font-extrabold dark:text-white">Filtrar por espacio</h6></div>
 <form method="get" class="custom-form">
     <tr>
@@ -60,7 +70,7 @@
   </tr>
 
   <tr>
-    <th><label for="id_start_date">Fecha Fin:</label></th>
+    <th><label for="id_start_date">Fecha Inicio:</label></th>
     <td>
       
       
@@ -77,19 +87,31 @@
       
         </td>
     </tr>
+
+  <tr>
+    <th><label for="id_end_date">Fecha Fin</label></th>
+    <td>
+      
+      
+      <div class="relative max-w-sm">
+        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+           <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+            </svg>
+        </div>
+        <input name="end_date" id="id_end_date" datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
+      </div>
+      
+        
+      
+    </td>
+  </tr>
     <button class="custom-button" type="submit" style="color : blue;">Search</button>
 
 </form>
 <div class='container_ac'> 
   <p class="text-2xl text-gray-900 dark:text-white">Numero de veces ocupado : {{ spaces }}</p>
-  <br>
-  <br>
-  <br>
-  <br>
-  <h6 class="text-4xl font-extrabold dark:text-white">Top 5 espacios mas usados</h6>
-  <br>
-  <br>
-  <br>
+
   <div class='occu_actual'>
       <div class="image-container">
           <figure class="max-w-lg">
