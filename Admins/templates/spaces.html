@@ -38,15 +38,15 @@
 
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Disponibilidad:</b> {{ space.get_availability_display }}</p>
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Clasificación:</b> {{ space.get_classification_display }}</p>
-                    <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Longitud:</b> {{ space.longitude }}</p>
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Latitud:</b> {{ space.latitude }}</p>
-                    <a href="{% url 'edit_space' space.id %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                    <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Longitud:</b> {{ space.longitude }}</p>
+                    <a href="{% url 'edit_space' space.id %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Editar este espacio">
                         <i class="fa-solid fa-pen"></i>
                         <span class="sr-only">Edit Icon</span>
                     </a>
-                    <a href="{% url 'delete_space' space.id %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                    <a href="{% url 'delete_space' space.id %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Eliminar este espacio">
                         <i class="fa-solid fa-trash-can"></i>
-                        <span class="sr-only">Edit Icon</span>
+                        <span class="sr-only">Delete Icon</span>
                     </a>
                 </div>
             </div>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="px-6 py-4">
-            <a href="{% url 'add_space' %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+            <a href="{% url 'add_space' %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Añadir nuevo espacio">
                 <i class="fa-solid fa-circle-plus"></i>
                 <span class="sr-only">Add Icon</span>
             </a>
