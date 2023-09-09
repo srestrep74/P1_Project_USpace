@@ -9,7 +9,7 @@
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                     </svg>
                 </div>
-                <input type="search" id="searchSpace" name="searchSpace" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cancha, mesa..." required>
+                <input type="search" id="searchSpace" name="searchSpace" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cancha, mesa...">
                 <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
             </div>
         </form>
@@ -40,6 +40,7 @@
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Clasificación:</b> {{ space.get_classification_display }}</p>
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Latitud:</b> {{ space.latitude }}</p>
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Longitud:</b> {{ space.longitude }}</p>
+                    <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Ocupación:</b> {{ space.occupancy }}/{{ space.max_occupancy }}</p>
                     <a href="{% url 'edit_space' space.id %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Editar este espacio">
                         <i class="fa-solid fa-pen"></i>
                         <span class="sr-only">Edit Icon</span>

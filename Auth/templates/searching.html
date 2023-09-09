@@ -86,22 +86,30 @@
                     <button type="button" class="toggle-description">
                         <span class="toggle-icon text-blue-500""><i class="fa-solid fa-ellipsis"></i></span>
                         <span class="sr-only">Toggle Description</span>
-                    </button>                                                     
+                    </button>
 
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Disponibilidad:</b> {{ space.get_availability_display }}</p>
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Clasificación:</b> {{ space.get_classification_display }}</p>
-                    <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Comentar sobre este espacio">
-                        <i class="fa-solid fa-comment"></i>
-                        <span class="sr-only">Comment Icon</span>
-                    </button>                                
-                    <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Ver este espacio en el mapa">
-                        <i class="fa-solid fa-map-location-dot"></i>
-                        <span class="sr-only">Location Icon</span>
-                    </button>                                 
-                    <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Generar recordatorio para este espacio">
-                        <i class="fa-solid fa-bell"></i>
-                        <span class="sr-only">Reminder Icon</span>
-                    </button>
+                    <div class="flex justify-between">
+                        <div>
+                            <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Comentar sobre este espacio">
+                                <i class="fa-solid fa-comment"></i>
+                                <span class="sr-only">Comment Icon</span>
+                            </button>                                
+                            <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Ver este espacio en el mapa">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <span class="sr-only">Location Icon</span>
+                            </button>                                 
+                            <button type="button" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Generar recordatorio para este espacio">
+                                <i class="fa-solid fa-bell"></i>
+                                <span class="sr-only">Reminder Icon</span>
+                            </button>
+                        </div>
+                        <div style="margin-top: 5px;">
+                            <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>{{ space.occupancy }}/{{ space.max_occupancy }}</b></p>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
             {% endfor %}

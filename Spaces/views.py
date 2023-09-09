@@ -12,7 +12,7 @@ from Auth.models import *
 
 
 def home(request):
-    return render(request , 'Map/home_user.html' )
+    return render(request , 'Map/home_user.html')
 
 
 def spaces_data(request):
@@ -27,8 +27,8 @@ def spaces_data(request):
             'classification' : space.classification,
             'latitude' : space.latitude,
             'longitude' : space.longitude
-
         }
+
     json_spaces = json.dumps(json_spaces)
     return JsonResponse(json_spaces, safe=False)
 
@@ -51,4 +51,3 @@ def space_info(request, pk):
         return redirect("/")
 
     return render(request, "Map/space.html" , {'space':space, 'comments':comments})
-

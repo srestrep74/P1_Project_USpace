@@ -18,9 +18,11 @@ class Space(models.Model):
     description = models.TextField(blank=False, null=False)
     availability = models.IntegerField(blank=False, null=False, choices=AVAILABILITY)
     classification = models.IntegerField(blank=False, null=False, choices=CLASSIFICATION)
-    latitude = models.FloatField(null=True)
-    longitude= models.FloatField(null=True)
-    image = models.ImageField(upload_to='spaces/images', null=False, default='piscina.jpg')
+    latitude = models.FloatField(null=False, blank=False, default=0)
+    longitude= models.FloatField(null=False, blank=False, default=0)
+    image = models.ImageField(upload_to='spaces/images', null=False, blank=False, default='piscina.jpg')
+    occupancy = models.IntegerField(default=0, null=False, blank=False)
+    max_occupancy = models.IntegerField(default=1, null=False, blank=False)
     
     def __str__(self):
         return self.name

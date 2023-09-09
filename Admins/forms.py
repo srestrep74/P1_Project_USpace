@@ -5,7 +5,7 @@ from .models import *
 class SpaceForm(forms.ModelForm):
     class Meta:
         model = Space
-        fields = ('name', 'description', 'availability', 'classification', 'longitude', 'latitude', 'image')
+        fields = ('name', 'description', 'availability', 'classification', 'longitude', 'latitude', 'image', 'max_occupancy')
         widgets = {
             'image': forms.FileInput(attrs={'accept': 'image/*'}),
         }
