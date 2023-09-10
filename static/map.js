@@ -8,7 +8,7 @@ const bounds = [
 const map = L.map('map', {
     maxBounds: bounds,
     maxBoundsViscosity: 1.0,
-    minZoom : 20, // Ajusta el límite incluso cuando el usuario intente hacer zoom fuera de los límites.
+    minZoom : 18, // Ajusta el límite incluso cuando el usuario intente hacer zoom fuera de los límites.
 }).setView([6.200146, -75.577256], 20);
 
 // Agregar la capa base de OpenStreetMap
