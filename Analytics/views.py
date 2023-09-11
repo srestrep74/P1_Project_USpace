@@ -118,10 +118,12 @@ def current_occupation():
 
     return (sports, restaurants, relax)
 
-def most_used_space(type_space, start_time, end_time, top=5):
+def most_used_space(type_space, start_time, top=5):
+
+    date = str(start_time)
+    date = datetime.strptime(date, "%Y-%m-%d")
     most_used_space_ids = OcuppiedSpace.objects.filter(
         occupied_at__gte=start_time,
-        unoccupied_at__lte=end_time
     ).values('space_id').annotate(
         total_hours=Coalesce(Sum(F('unoccupied_at') - F('occupied_at')), timedelta(seconds=0))
     ).order_by('-total_hours')[:top]
@@ -155,17 +157,8 @@ def most_used_space(type_space, start_time, end_time, top=5):
 
 def info(request):
 
-    spaces = OcuppiedSpace.objects.all()
-    
-    myFilter = OccupiedSpaceFilter(request.GET, queryset=spaces)
-
-    spaces = myFilter.qs
-
-    space_frequencies = spaces.count()
-
-
     if request.method == 'POST':
-        user_date = request.POST.get('date', None)
+        user_date = request.POST.get('start_date', None)
 
         if user_date is not None:
             start_date = user_date.replace('/', '-')
@@ -176,8 +169,11 @@ def info(request):
         start_date = datetime.now().date()
 
 
-    
-    end_date = (datetime.now()  + timedelta(days=1)).date()
+    #end_date = (datetime.now()  + timedelta(days=1)).date()
+
+
+    print("ALERTAAAAA")
+    print(start_date)
 
 
     currents = current_occupation()
@@ -185,14 +181,13 @@ def info(request):
         'current_occupation_sports':currents[0],
         'current_occupation_restaurants':currents[1],
         'current_occupation_relax':currents[2],
-        'most_used_sports': most_used_space(0, start_date, end_date),
-        'most_used_restaurants':most_used_space(1, start_date, end_date),
-        'most_used_relax': most_used_space(2, start_date, end_date),
-        'filter': myFilter,
-        'spaces': space_frequencies,
+        'most_used_sports': most_used_space(0, start_date),
+        'most_used_restaurants':most_used_space(1, start_date),
+        'most_used_relax': most_used_space(2, start_date),
         'current_graph_sports': occupancy(20,currents[0]),
         'current_graph_restaurants': occupancy(500, currents[1]),
         'current_graph_relax': occupancy(80, currents[2]),
-        'occupation_by_hours' : occupation_by_hours(start_date)
+        'occupation_by_hours' : occupation_by_hours(start_date),
+        'filter_date' : start_date
     }
     return render(request, 'data.html', context)
