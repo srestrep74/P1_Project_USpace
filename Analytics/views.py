@@ -13,70 +13,50 @@ from Admins.models import Space
 
 
 def occupancy(total, occupied):
-
     total_places = total
     occupied_places = occupied
-
     occupancy_percentage = (occupied_places / total_places) * 100
-
-    
     labels = ['Ocupado', 'Disponible']
     sizes = [occupancy_percentage, 100 - occupancy_percentage]
     colors = ['lightcoral', 'lightskyblue']
-
     fig, ax = plt.subplots()
     ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-    ax.axis('equal')  # Ensure the chart is a circle.
-
+    ax.axis('equal')
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
     plt.close()
-
     image_base64 = base64.b64encode(buffer.read()).decode()
 
     return image_base64
 
 
 def occupation_by_hours(dat):
-
     date = str(dat)
     date = datetime.strptime(date, "%Y-%m-%d")
     occupation_hours= [0]*24
-
     start_time = datetime(year=date.year, month=date.month, day=date.day, hour=5, minute=0, second=0)
-
     end_time = start_time + timedelta(hours=19)
-
     occupied_spaces = OcuppiedSpace.objects.filter(
         occupied_at__gte=start_time,
         occupied_at__lt=end_time
     )
 
-
-    print(occupied_spaces.count())
-
     for space in occupied_spaces:
         first_hour = int(space.occupied_at.hour)
         last_hour = int(space.unoccupied_at.hour)
-
         while first_hour <=last_hour:
             occupation_hours[first_hour] =occupation_hours[first_hour] +1
             first_hour += 1
 
     occupation_hours = occupation_hours[5:25]
-    print(occupation_hours)
-
     start_time = datetime.strptime('05:00 AM', '%I:%M %p').time()
     counter = 0
-
     hours_am_pm = []
-
     current_time = start_time
 
     while counter < 19:
         time_am_pm = current_time.strftime("%I:%M %p")
-        
         hours_am_pm.append(time_am_pm)
         current_time = (datetime.combine(datetime.today(), current_time) + timedelta(hours=1)).time()
         counter+=1
@@ -91,13 +71,10 @@ def occupation_by_hours(dat):
     plt.savefig(buffer, format='png')
     buffer.seek(0)
     plt.close()
-
     image_base64 = base64.b64encode(buffer.read()).decode()
 
     return image_base64
-
     
-
 
 def current_occupation():
     occupied_space_count = Space.objects.all()
@@ -105,12 +82,10 @@ def current_occupation():
         classification=0,
         availability=1,
     ).count()
-
     restaurants = occupied_space_count.filter(
         classification=1,
         availability=1,
     ).count()
-
     relax = occupied_space_count.filter(
         classification=2,
         availability=1,
@@ -119,7 +94,6 @@ def current_occupation():
     return (sports, restaurants, relax)
 
 def most_used_space(type_space, start_time, top=5):
-
     date = str(start_time)
     date = datetime.strptime(date, "%Y-%m-%d")
     most_used_space_ids = OcuppiedSpace.objects.filter(
@@ -127,19 +101,16 @@ def most_used_space(type_space, start_time, top=5):
     ).values('space_id').annotate(
         total_hours=Coalesce(Sum(F('unoccupied_at') - F('occupied_at')), timedelta(seconds=0))
     ).order_by('-total_hours')[:top]
-
     most_used_spaces = Space.objects.filter(id__in=[item['space_id'] for item in most_used_space_ids], classification=type_space).order_by('id')
-
     space_hours = defaultdict(float)
 
     for item in most_used_space_ids:
         space_id = item['space_id']
-        total_hours = item['total_hours'].total_seconds() / 3600  # Convertir a horas
+        total_hours = item['total_hours'].total_seconds() / 3600
         space_hours[space_id] = total_hours
 
     space_names = [space.name for space in most_used_spaces]
     hours = [space_hours[space.id] for space in most_used_spaces]
-
     plt.figure(figsize=(10, 6))
     plt.bar(space_names, hours)
     plt.xlabel('Espacios')
@@ -156,24 +127,15 @@ def most_used_space(type_space, start_time, top=5):
 
 
 def info(request):
-
     if request.method == 'POST':
         user_date = request.POST.get('start_date', None)
-
         if user_date is not None:
             start_date = user_date.replace('/', '-')
-            
         else:
             start_date = datetime.now().date()
+
     else:
         start_date = datetime.now().date()
-
-
-    #end_date = (datetime.now()  + timedelta(days=1)).date()
-
-
-    print("ALERTAAAAA")
-    print(start_date)
 
 
     currents = current_occupation()
@@ -190,4 +152,5 @@ def info(request):
         'occupation_by_hours' : occupation_by_hours(start_date),
         'filter_date' : start_date
     }
+
     return render(request, 'data.html', context)
