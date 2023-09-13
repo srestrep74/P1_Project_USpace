@@ -87,6 +87,7 @@ def register(request):
     form = user_form()
     if request.method == 'POST':
         form = user_form(request.POST)
+        print(form)
         if form.is_valid():
             _user = form.save()
             group = Group.objects.get(name='user')
@@ -95,4 +96,4 @@ def register(request):
             messages.success(request,'Account was created for ' + form.cleaned_data.get('username'))
             return redirect('login')
         
-    return render(request, 'signup.html')
+    return render(request, 'signup.html', {'form': form})
