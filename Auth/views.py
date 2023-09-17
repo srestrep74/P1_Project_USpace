@@ -16,21 +16,33 @@ from django.http import HttpResponse
 from django.db.models import Q
 from .models import *
 from .decorators import *
+from Spaces.models import *
+from Spaces.forms import *
 
 
-from django.db.models import Q
+@login_required
+def createReminder(request, user_id, space_id):
+    if request.method == 'POST':
+        form = reminderForm(request.POST)
+        if form.is_valid():
+            reminder = form.save(commit=False)
+            reminder.save()
+            return redirect('show_spaces')
+    
+    else:
+        form = reminderForm()
+    
+    return render(request, 'create_reminder.html', {'form': form})
+
 
 def searchSpaces(request):
     searchTerm = request.GET.get('searchSpace')
     selected_filters_list = request.GET.getlist('filter')
-
     # Convierte la lista en una cadena separada por comas
     selected_filters = ','.join(selected_filters_list)
-
     # Guarda los filtros seleccionados en una cookie
     response = HttpResponse(render(request, 'searching.html', {'searchTerm': searchTerm}))
     response.set_cookie('selectedFilters', selected_filters)
-
     # Inicializa una consulta vacía
     query = Q()
 
@@ -55,7 +67,6 @@ def searchSpaces(request):
 
         query &= filter_q
 
-    # Ejecuta la consulta combinada
     spaces = Space.objects.filter(query)
 
     return render(request, 'searching.html', {'searchTerm': searchTerm, 'spaces': spaces})

@@ -6,4 +6,5 @@ urlpatterns = [
     path('logout/', views.logoutAccount, name='logout'),
     path('login/', views.login, name='login'),
     path('search_spaces/' , views.searchSpaces , name='search_spaces'),
+    path('create_reminder/<int:user_id>/<int:space_id>' , views.createReminder , name='create_reminder'),
 ]
