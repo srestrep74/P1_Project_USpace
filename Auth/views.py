@@ -21,17 +21,19 @@ from Spaces.forms import *
 
 
 @login_required
-def createReminder(request, user_id, space_id):
+def createReminder(request, user, space):
     if request.method == 'POST':
-        form = reminderForm(request.POST)
+        form = NotificationForm(request.POST)
         if form.is_valid():
-            reminder = form.save(commit=False)
-            reminder.save()
+            notification = form.save(commit=False)
+            notification.user_id = user
+            notification.space_id = space
+            notification.save()
             return redirect('show_spaces')
-    
     else:
-        form = reminderForm()
-    
+        initial_data = {'user': user, 'space': space}
+        form = NotificationForm(initial=initial_data)
+
     return render(request, 'create_reminder.html', {'form': form})
 
 

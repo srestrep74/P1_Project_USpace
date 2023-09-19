@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from Admins.models import Space
 from django.core import serializers
 import json
-from .models import Comment, Reminder
+from .models import Comment
 from .forms import comment_form
 from Auth.decorators import *
 from django.contrib.auth.decorators import login_required

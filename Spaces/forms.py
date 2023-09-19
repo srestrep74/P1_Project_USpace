@@ -7,7 +7,7 @@ class comment_form(forms.ModelForm):
         fields = ["comment"]
 
 
-class reminderForm(forms.ModelForm):
+class NotificationForm(forms.ModelForm):
     class Meta:
-        model = Reminder
-        fields = ["space_id", "remember_to", "user_id"]
+        model = Notification
+        fields = ("space", "remember_to", "user")
