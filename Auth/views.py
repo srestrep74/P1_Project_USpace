@@ -18,6 +18,38 @@ from .models import *
 from .decorators import *
 from Spaces.models import *
 from Spaces.forms import *
+from apscheduler.schedulers.background import BackgroundScheduler
+from django.core.mail import send_mail, EmailMessage
+from USpace.settings import EMAIL_HOST_USER
+from django.utils import timezone
+
+
+def send_notifications():
+    current_time = timezone.now().astimezone(timezone.get_current_timezone())
+
+    notifications = Notification.objects.filter(
+        remember_to__lt=current_time,
+        sent=False
+    )
+    print("Sending...")
+
+    for notification in notifications:
+        space = Space.objects.get(id=notification.space_id)
+        usr = User.objects.get(id=notification.user_id)
+        print(current_time, notification.remember_to)
+        send_mail(
+            f'{space.name}',
+            f'¡Hola, {usr.username}! \n Te notificamos que {space.name.lower()} en estos momentos se encuentra {space.get_availability_display().lower()}',
+            EMAIL_HOST_USER,
+            [f'{usr.email}']
+        )
+
+    notifications.update(sent=True)
+
+
+scheduler = BackgroundScheduler()
+scheduler.add_job(send_notifications, 'cron', minute='*')
+scheduler.start()
 
 
 @login_required
@@ -26,13 +58,15 @@ def createReminder(request, user, space):
         form = NotificationForm(request.POST)
         if form.is_valid():
             notification = form.save(commit=False)
-            notification.user_id = user
-            notification.space_id = space
+            usr = User.objects.get(pk = user)
+            space_obj = Space.objects.get(pk = space)
+            notification.user_id = usr.id
+            notification.space_id = space_obj.id
             notification.save()
-            return redirect('show_spaces')
+            return redirect('search_spaces')
+        
     else:
-        initial_data = {'user': user, 'space': space}
-        form = NotificationForm(initial=initial_data)
+        form = NotificationForm()
 
     return render(request, 'create_reminder.html', {'form': form})
 
@@ -90,7 +124,7 @@ def login(request):
             auth.login(request, user)
             return redirect('home')
         else:
-            messages.info(request, 'Usuario o contrasena son incorrectos')
+            messages.info(request, 'Usuario o contraseña son incorrectos')
             return redirect('login')
     return render(request, 'login.html')
 

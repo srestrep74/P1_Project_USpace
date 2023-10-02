@@ -10,4 +10,4 @@ class comment_form(forms.ModelForm):
 class NotificationForm(forms.ModelForm):
     class Meta:
         model = Notification
-        fields = ("space", "remember_to", "user")
+        fields = ["remember_to"]

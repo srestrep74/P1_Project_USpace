@@ -12,19 +12,9 @@
             <input type="datetime-local" id="datetimepicker" name="remember" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
         </div>
         
-        <input type="hide" id="remember_to" name="remember_to">
-        
-        <div class="mb-6">
-            <label for="{{ form.space.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Espacio</label>
-            {{ form.space }}
-        </div>
-        
-        <div class="mb-6">
-            <label for="{{ form.user.id_for_label }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User</label>
-            {{ form.user }}
-        </div>
+        <input type="hidden" id="remember_to" name="remember_to">
 
-        <button class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Confirmar recordatorio">
+        <button class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Confirmar">
             <i class="fa-solid fa-check"></i>
             <span class="sr-only">Reminder Icon</span>
         </button>
@@ -34,16 +24,19 @@
     <script>
         document.getElementById("datetimepicker").addEventListener("change", function () {
             const inputDate = this.value; // Obtiene el valor del campo datetime-local en formato local
-    
+            
             // Convierte la fecha y hora local en una fecha de JavaScript
             const localDate = new Date(inputDate);
-    
+            
+            // Convierte la fecha y hora local a UTC
+            const utcDate = new Date(localDate.getTime() - localDate.getTimezoneOffset() * 60000);
+            
             // Formatea la fecha y hora en el formato de MySQL (YYYY-MM-DD HH:MM:SS)
-            const mysqlFormattedDate = localDate.toISOString().slice(0, 19).replace("T", " ");
-    
+            const mysqlFormattedDate = utcDate.toISOString().slice(0, 19).replace("T", " ");
+            
             // Asigna el valor formateado al campo hidden (o lo envía al servidor)
             document.getElementById("remember_to").value = mysqlFormattedDate;
         });
-    </script>
+    </script>    
     
 {% endblock content %}
