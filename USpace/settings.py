@@ -16,6 +16,13 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'juangomezp1204@gmail.com'
+EMAIL_HOST_PASSWORD = 'svxq woyh pyqj dobz'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -43,7 +50,7 @@ INSTALLED_APPS = [
     'Auth',
     'Analytics',
     'Admins',
-    'django_filters'
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -84,7 +91,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'birzyay0v1nhjnvywaun',
         'USER': 'ud03785zpvgrc7vl',
-        'PASSWORD': '',
+        'PASSWORD': 'a40n0YCYBLlPTdts4wln',
         'HOST': 'birzyay0v1nhjnvywaun-mysql.services.clever-cloud.com',
         'PORT': 3306,
     }
@@ -114,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota'
 
 USE_I18N = True
 

@@ -31,12 +31,10 @@ def send_notifications():
         remember_to__lt=current_time,
         sent=False
     )
-    print("Sending...")
 
     for notification in notifications:
         space = Space.objects.get(id=notification.space_id)
         usr = User.objects.get(id=notification.user_id)
-        print(current_time, notification.remember_to)
         send_mail(
             f'{space.name}',
             f'¡Hola, {usr.username}! \n Te notificamos que {space.name.lower()} en estos momentos se encuentra {space.get_availability_display().lower()}',
