@@ -1,7 +1,8 @@
 from django.db.models import Count, Sum, F, Q
 from django.db.models.functions import Coalesce
 from django.shortcuts import render
-from datetime import timedelta, datetime, time
+from datetime import timedelta, datetime    
+import time
 from .filters import OccupiedSpaceFilter
 from io import BytesIO
 import base64
@@ -37,20 +38,44 @@ def occupation_by_year(dat):
     occupation_month_restaurants = [0]*12
     occupation_month_sports = [0]*12
     occupation_month_relax = [0]*12
+    print("Inicio")
+    inicio = time.time()
     start_time = datetime(year=date.year, month=1, day = 1)
-    end_time = datetime(year=date.year, month=12, day = 1)
+    end_time = datetime(year=date.year, month=12, day = 30)
+
+
     occupied_spaces = OcuppiedSpace.objects.filter(
         occupied_at__gte=start_time,
-        occupied_at__lt=end_time
+        occupied_at__lt=end_time, 
+        space_id__classification = 0
     )
-    for space in occupied_spaces:
-        space_class= space.space_id
-        if space_class.classification == 0:
-            occupation_month_sports[int(space.occupied_at.month)-1] += 1 
-        elif space_class.classification == 1:
-            occupation_month_restaurants[int(space.occupied_at.month)-1] += 1
-        else:
-            occupation_month_relax[int(space.occupied_at.month)-1] += 1
+
+    for ocuppied in occupied_spaces:
+        occupation_month_sports[int(ocuppied.occupied_at.month)-1] += 1 
+
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time, 
+        space_id__classification = 1
+    )
+    for ocuppied in occupied_spaces:
+        occupation_month_restaurants[int(ocuppied.occupied_at.month)-1] += 1 
+
+
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time, 
+        space_id__classification = 2
+    )
+     
+    for ocuppied in occupied_spaces:
+        occupation_month_relax[int(ocuppied.occupied_at.month)-1] += 1 
+        
+    fin = time.time()
+    tiempo_transcurrido = fin - inicio
+    print("PENEEEEE")
+    print("AHORA")
+    print(tiempo_transcurrido)
 
 
     colors = {
@@ -144,6 +169,7 @@ def current_occupation():
 
     return (sports, restaurants, relax)
 
+
 def most_used_space(type_space, start_time, top=5):
     date = str(start_time)
     date = datetime.strptime(date, "%Y-%m-%d")
@@ -188,7 +214,6 @@ def info(request):
     else:
         start_date = datetime.now().date()
 
-    occupation_by_year(start_date)
     currents = current_occupation()
     context = {
         'current_occupation_sports':currents[0],
