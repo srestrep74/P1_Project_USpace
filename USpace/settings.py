@@ -12,26 +12,27 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-from dotenv import load_dotenv
+import environ
 
-_ =  load_dotenv('../credentials.env')
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-EMAIL_BACKEND = os.getenv('EMAIL_BACKEND')
-EMAIL_HOST = os.getenv('EMAIL_HOST')
-EMAIL_PORT = os.getenv('EMAIL_PORT')
-EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = os.getenv('EMAIL_USE_TLS')
-EMAIL_USE_SSL = os.getenv('EMAIL_USE_SSL')
+EMAIL_BACKEND = env('EMAIL_B')
+EMAIL_HOST = env('EMAIL_H')
+EMAIL_PORT = env('EMAIL_P')
+EMAIL_HOST_USER = env('EMAIL_H_U')
+EMAIL_HOST_PASSWORD = env('EMAIL_H_P')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-u&o%&%dmsdu_8+nz6vdx^w!*g4jleu3k9^gn)kffq^i_2oau(6'
+SECRET_KEY = env('S_K')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -92,13 +93,14 @@ WSGI_APPLICATION = 'USpace.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'birzyay0v1nhjnvywaun',
-        'USER': 'ud03785zpvgrc7vl',
-        'PASSWORD': '...',
-        'HOST': 'birzyay0v1nhjnvywaun-mysql.services.clever-cloud.com',
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'), 
         'PORT': 3306,
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
