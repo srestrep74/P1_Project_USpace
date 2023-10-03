@@ -31,10 +31,61 @@ def occupancy(total, occupied):
     return image_base64
 
 
+def occupation_by_year(dat):
+    date = str(dat)
+    date = datetime.strptime(date, "%Y-%m-%d")
+    occupation_month_restaurants = [0]*12
+    occupation_month_sports = [0]*12
+    occupation_month_relax = [0]*12
+    start_time = datetime(year=date.year, month=1, day = 1)
+    end_time = datetime(year=date.year, month=12, day = 1)
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time
+    )
+    for space in occupied_spaces:
+        space_class= space.space_id
+        if space_class.classification == 0:
+            occupation_month_sports[int(space.occupied_at.month)-1] += 1 
+        elif space_class.classification == 1:
+            occupation_month_restaurants[int(space.occupied_at.month)-1] += 1
+        else:
+            occupation_month_relax[int(space.occupied_at.month)-1] += 1
+
+
+    colors = {
+        "Restaurantes": "blue",
+        "Zonas de Descanso": "purple",
+        "Zonas Deportivas": "green"
+    }
+
+    months_labels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+
+    fig, ax = plt.subplots()
+
+    ax.plot(months_labels, occupation_month_restaurants, marker='o', linestyle='-', color=colors["Restaurantes"], label='Restaurantes')
+
+    ax.plot(months_labels, occupation_month_relax, marker='o', linestyle='-', color=colors["Zonas de Descanso"], label='Zonas de Descanso')
+
+    ax.plot(months_labels, occupation_month_sports, marker='o', linestyle='-', color=colors["Zonas Deportivas"], label='Zonas Deportivas')
+
+    ax.set_xlabel("Meses")
+    ax.set_ylabel("Ocupación")
+    ax.set_title("Ocupación por Mes y Categoría")
+
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    plt.close()
+    image_base64 = base64.b64encode(buffer.read()).decode()
+
+    return image_base64
+
+
 def occupation_by_hours(dat):
     date = str(dat)
     date = datetime.strptime(date, "%Y-%m-%d")
-    occupation_hours= [0]*24
+    occupation_hours = [0]*24
     start_time = datetime(year=date.year, month=date.month, day=date.day, hour=5, minute=0, second=0)
     end_time = start_time + timedelta(hours=19)
     occupied_spaces = OcuppiedSpace.objects.filter(
@@ -137,7 +188,7 @@ def info(request):
     else:
         start_date = datetime.now().date()
 
-
+    occupation_by_year(start_date)
     currents = current_occupation()
     context = {
         'current_occupation_sports':currents[0],
@@ -150,7 +201,8 @@ def info(request):
         'current_graph_restaurants': occupancy(500, currents[1]),
         'current_graph_relax': occupancy(80, currents[2]),
         'occupation_by_hours' : occupation_by_hours(start_date),
-        'filter_date' : start_date
+        'occupation_by_year' : occupation_by_year(start_date),
+        'filter_date' : start_date,
     }
 
     return render(request, 'data.html', context)
