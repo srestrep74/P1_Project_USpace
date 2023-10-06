@@ -33,6 +33,7 @@ def send_notifications():
     )
 
     for notification in notifications:
+        print(notification.space_id)
         space = Space.objects.get(id=notification.space_id)
         usr = User.objects.get(id=notification.user_id)
         send_mail(
@@ -61,12 +62,14 @@ def createReminder(request, user, space):
             notification.user_id = usr.id
             notification.space_id = space_obj.id
             notification.save()
+            messages.success(request, 'El recordatorio se ha agendado correctamente')
             return redirect('search_spaces')
         
     else:
         form = NotificationForm()
+        space_obj = Space.objects.get(pk = space)
 
-    return render(request, 'create_reminder.html', {'form': form})
+    return render(request, 'create_reminder.html', {'form': form, 'space': space_obj})
 
 
 def searchSpaces(request):
@@ -102,8 +105,11 @@ def searchSpaces(request):
         query &= filter_q
 
     spaces = Space.objects.filter(query)
+    success_message = None
+    if messages.get_messages(request):
+        success_message = messages.get_messages(request).__str__()
 
-    return render(request, 'searching.html', {'searchTerm': searchTerm, 'spaces': spaces})
+    return render(request, 'searching.html', {'searchTerm': searchTerm, 'spaces': spaces, 'success_message': success_message})
 
 
 @login_required       
@@ -138,7 +144,7 @@ def register(request):
             group = Group.objects.get(name='user')
             _user.groups.add(group)
             user_m.objects.create(user=_user, username=_user.username)
-            messages.success(request,'Account was created for ' + form.cleaned_data.get('username'))
+            messages.success(request, '¡Hola, ' + form.cleaned_data.get('username') + '! Tu cuenta ha sido creada exitosamente, ahora puedes inciar sesión.')
             return redirect('login')
         
     return render(request, 'signup.html', {'form': form})

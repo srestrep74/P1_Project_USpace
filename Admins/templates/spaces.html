@@ -10,14 +10,14 @@
                     </svg>
                 </div>
                 <input type="search" id="searchSpace" name="searchSpace" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Cancha, mesa...">
-                <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
             </div>
         </form>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for space in spaces %}
             <div class="bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700" style="height: fit-content; margin-bottom: 35px;">
-                <img class="aspect-video w-96 rounded-t-lg object-cover object-center" src="{{ space.image.url }}" alt="">
+                <img class="aspect-video w-96 rounded-t-lg object-cover object-center" style="height: 140px;" src="{{ space.image.url }}" alt="">
                 <div class="px-6 py-4">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ space.name }}</h5>
                     <!-- Contenedor de descripción truncada -->
@@ -41,24 +41,37 @@
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Latitud:</b> {{ space.latitude }}</p>
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Longitud:</b> {{ space.longitude }}</p>
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Ocupación:</b> {{ space.occupancy }}/{{ space.max_occupancy }}</p>
-                    <a href="{% url 'edit_space' space.id %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Editar este espacio">
-                        <i class="fa-solid fa-pen"></i>
-                        <span class="sr-only">Edit Icon</span>
-                    </a>
-                    <a href="{% url 'delete_space' space.id %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Eliminar este espacio">
-                        <i class="fa-solid fa-trash-can"></i>
-                        <span class="sr-only">Delete Icon</span>
-                    </a>
+                    <div>
+                        <a href="{% url 'edit_space' space.id %}" data-tooltip-target="tooltip-edit" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                            <i class="fa-solid fa-pen"></i>
+                            <span class="sr-only">Edit Icon</span>
+                        </a>
+                        <div id="tooltip-edit" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Editar espacio
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                        <a href="{% url 'delete_space' space.id %}" data-tooltip-target="tooltip-delete" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span class="sr-only">Delete Icon</span>
+                        </a>
+                        <div id="tooltip-delete" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                            Eliminar espacio
+                            <div class="tooltip-arrow" data-popper-arrow></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-
         <div class="px-6 py-4">
-            <a href="{% url 'add_space' %}" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500" title="Añadir nuevo espacio">
+            <a href="{% url 'add_space' %}" data-tooltip-target="tooltip-new" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
                 <i class="fa-solid fa-circle-plus"></i>
-                <span class="sr-only">Add Icon</span>
+                <span class="sr-only">Add</span>
             </a>
+        </div>
+        <div id="tooltip-new" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+            Añadir espacio
+            <div class="tooltip-arrow" data-popper-arrow></div>
         </div>
     </div>
 

@@ -38,11 +38,8 @@ def occupation_by_year(dat):
     occupation_month_restaurants = [0]*12
     occupation_month_sports = [0]*12
     occupation_month_relax = [0]*12
-    print("Inicio")
-    inicio = time.time()
     start_time = datetime(year=date.year, month=1, day = 1)
     end_time = datetime(year=date.year, month=12, day = 30)
-
 
     occupied_spaces = OcuppiedSpace.objects.filter(
         occupied_at__gte=start_time,
@@ -58,6 +55,7 @@ def occupation_by_year(dat):
         occupied_at__lt=end_time, 
         space_id__classification = 1
     )
+
     for ocuppied in occupied_spaces:
         occupation_month_restaurants[int(ocuppied.occupied_at.month)-1] += 1 
 
@@ -70,13 +68,6 @@ def occupation_by_year(dat):
      
     for ocuppied in occupied_spaces:
         occupation_month_relax[int(ocuppied.occupied_at.month)-1] += 1 
-        
-    fin = time.time()
-    tiempo_transcurrido = fin - inicio
-    print("PENEEEEE")
-    print("AHORA")
-    print(tiempo_transcurrido)
-
 
     colors = {
         "Restaurantes": "blue",
@@ -85,13 +76,9 @@ def occupation_by_year(dat):
     }
 
     months_labels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-
     fig, ax = plt.subplots()
-
     ax.plot(months_labels, occupation_month_restaurants, marker='o', linestyle='-', color=colors["Restaurantes"], label='Restaurantes')
-
     ax.plot(months_labels, occupation_month_relax, marker='o', linestyle='-', color=colors["Zonas de Descanso"], label='Zonas de Descanso')
-
     ax.plot(months_labels, occupation_month_sports, marker='o', linestyle='-', color=colors["Zonas Deportivas"], label='Zonas Deportivas')
 
     ax.set_xlabel("Meses")
