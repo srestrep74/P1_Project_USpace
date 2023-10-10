@@ -35,7 +35,7 @@ def spaces_data(request):
 
 def space_info(request, pk):
     space = Space.objects.get(id=pk)
-    comments = Comment.objects.all()
+    comments = Comment.objects.all().filter(space=pk)
     if request.method == 'POST':
         rating = 0
         user = request.user
@@ -47,7 +47,6 @@ def space_info(request, pk):
             user = user
         ) 
         rev.save()
-        print(comment)
-        return redirect("/")
+        return redirect('space_info', pk=pk)
 
     return render(request, "Map/space.html" , {'space':space, 'comments':comments})

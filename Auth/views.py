@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import user_form
+from .forms import user_form, user_update_form
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
@@ -143,8 +143,23 @@ def register(request):
             _user = form.save()
             group = Group.objects.get(name='user')
             _user.groups.add(group)
-            user_m.objects.create(user=_user, username=_user.username)
+            user_m.objects.create(user=_user, username=_user.username, email=_user.email)
             messages.success(request, '¡Hola, ' + form.cleaned_data.get('username') + '! Tu cuenta ha sido creada exitosamente, ahora puedes inciar sesión.')
             return redirect('login')
         
     return render(request, 'signup.html', {'form': form})
+
+def update_user(request, pk):
+    _user = user_m.objects.get(id=pk)
+    __user = _user.user
+    form = user_update_form(instance = _user)
+    if request.method == 'POST':
+        form = user_update_form(request.POST,request.FILES,  instance=_user)
+        if form.is_valid():
+            form.save()
+            __user.username = _user.username
+            __user.email = _user.email
+            __user.save()
+            return redirect('/')
+    context = {'form' :form}
+    return render(request, 'update_user.html' , context)
