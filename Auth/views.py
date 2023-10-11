@@ -149,6 +149,7 @@ def register(request):
         
     return render(request, 'signup.html', {'form': form})
 
+
 def update_user(request, pk):
     _user = user_m.objects.get(id=pk)
     __user = _user.user
