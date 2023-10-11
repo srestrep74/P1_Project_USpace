@@ -24,6 +24,25 @@ from USpace.settings import EMAIL_HOST_USER
 from django.utils import timezone
 
 
+def comment(request, space):
+    space = Space.objects.get(id=space)
+    comments = Comment.objects.all().filter(space=space)
+    if request.method == 'POST':
+        rating = 0
+        user = request.user
+        comment = request.POST.get('comment')
+        rev = Comment(
+            rating = rating,
+            space = space,
+            comment = comment,
+            user = user
+        ) 
+        rev.save()
+        return redirect('search_spaces')
+
+    return render(request, "comment.html" , {'space':space, 'comments':comments})
+
+
 def send_notifications():
     current_time = timezone.now().astimezone(timezone.get_current_timezone())
 
@@ -150,7 +169,7 @@ def register(request):
     return render(request, 'signup.html', {'form': form})
 
 
-def update_user(request, pk):
+def updateUser(request, pk):
     _user = user_m.objects.get(id=pk)
     __user = _user.user
     form = user_update_form(instance = _user)
