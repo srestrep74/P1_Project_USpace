@@ -26,7 +26,9 @@ def spaces_data(request):
             'availability' : space.availability,
             'classification' : space.classification,
             'latitude' : space.latitude,
-            'longitude' : space.longitude
+            'longitude' : space.longitude,
+            'occupancy': space.occupancy,
+            'max': space.max_occupancy
         }
 
     json_spaces = json.dumps(json_spaces)

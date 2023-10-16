@@ -41,3 +41,11 @@ html , body {
     margin-top: 80px;
     margin-right: 200px;
 }
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}

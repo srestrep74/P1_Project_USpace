@@ -32,8 +32,8 @@
                         var marker = L.marker([spaces[space]["latitude"], spaces[space]["longitude"]], {icon: icon}).addTo(map);
                         var spaceId = spaces[space]["id"];
                         var url = "{% url 'space_info' 0 %}".replace('0', spaceId);
-                        var popupContent = "<h3>" + spaces[space]['name'] + "</h3> <a href='" + url + "'>Ver mas Informacion</a>";
-                        marker.bindPopup(popupContent);
+                        var popUpContent = "<div class='popup-content'><h3>" + spaces[space]['name'] + "</h3> <p>" + spaces[space]['occupancy'] + "/" + spaces[space]['max'] + "</p> <a href='" + url + "'>Ver más información</a></div>";
+                        marker.bindPopup(popUpContent);
                         markers.push(marker);
                     };
                 }

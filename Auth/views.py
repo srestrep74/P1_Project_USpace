@@ -43,7 +43,7 @@ def comment(request, space):
     return render(request, "comment.html" , {'space':space, 'comments':comments})
 
 
-def send_notifications():
+def sendNotifications():
     current_time = timezone.now().astimezone(timezone.get_current_timezone())
 
     notifications = Notification.objects.filter(
@@ -66,7 +66,7 @@ def send_notifications():
 
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(send_notifications, 'cron', minute='*')
+scheduler.add_job(sendNotifications, 'cron', minute='*')
 scheduler.start()
 
 

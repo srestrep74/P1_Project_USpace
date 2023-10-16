@@ -148,6 +148,19 @@
         </div>
     </div>
 
+    <div class="fixed z-50 -translate-x-1/2 bottom-4 left-1/2">
+        <div class="bg-white inline-block rounded-full" style="padding: 15px;">
+            <a href="" data-tooltip-target="tooltip-new" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span class="sr-only">Reportar daño/problema</span>
+            </a>
+        </div>
+        <div id="tooltip-new" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+            Reportar daño/problema
+            <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');

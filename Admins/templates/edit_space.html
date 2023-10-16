@@ -21,19 +21,15 @@
             <input type="text" id="description" name="description" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ space_form.description.value }}">
         </div>
         
-        <div class="mb-6">
-            <label for="latitude" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Latitud</label>
-            <input type="text" id="latitude" name="latitude" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ space_form.latitude.value }}">
-        </div>
-
-        <div class="mb-6">
-            <label for="longitude" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Longitud</label>
-            <input type="text " id="longitude" name="longitude" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ space_form.longitude.value }}">
-        </div>
-
-        <div class="mb-6">
-            <label for="max_occupancy" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ocupancia máxima</label>
-            <input type="number " id="max_occupancy" name="max_occupancy" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ space_form.max_occupancy.value }}">
+        <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="mb-6">
+                <label for="latitude" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Latitud</label>
+                <input type="text" id="latitude" name="latitude" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ space_form.latitude.value }}">
+            </div>
+            <div class="mb-6">
+                <label for="longitude" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Longitud</label>
+                <input type="text " id="longitude" name="longitude" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ space_form.longitude.value }}">
+            </div>
         </div>
 
         <div class="mb-6">
@@ -54,9 +50,15 @@
             </select>       
         </div>
 
-        <div class="mb-6">
-            <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva imagen del espacio (opcional)</label>
-            <input type="file" id="image" name="image" accept="image/*" class="shadow-sm focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light">
+        <div class="grid md:grid-cols-2 md:gap-6">
+            <div class="mb-6">
+                <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nueva imagen del espacio (opcional)</label>
+                <input name="image" accept="image/*" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="space_image" id="space_image" type="file">
+            </div>
+            <div class="mb-6">
+                <label for="max_occupancy" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Ocupancia máxima</label>
+                <input type="number" id="max_occupancy" name="max_occupancy" class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" value="{{ space_form.max_occupancy.value }}">
+            </div>
         </div>
 
         <div style="margin-bottom: 5px;">
