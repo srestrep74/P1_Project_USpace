@@ -7,5 +7,6 @@ class user_m(models.Model):
     username = models.CharField(max_length=150)
     email = models.EmailField(null=True)
     profile_pic = models.ImageField(default='profile.jpg', null=True)
+    
     def __str__(self):
         return str(self.username)

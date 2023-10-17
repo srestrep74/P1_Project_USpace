@@ -1,16 +1,17 @@
-from django.db.models import Count, Sum, F, Q
+from django.db.models import Sum, F
 from django.db.models.functions import Coalesce
 from django.shortcuts import render
-from datetime import timedelta, datetime    
-import time
+from datetime import timedelta, datetime  
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa  
 from .filters import OccupiedSpaceFilter
 from io import BytesIO
-import base64
-import matplotlib.pyplot as plt
 from collections import defaultdict
-from django.http import HttpResponse
 from Analytics.models import OcuppiedSpace
 from Admins.models import Space
+import base64
+import matplotlib.pyplot as plt
 
 
 def occupancy(total, occupied):
@@ -41,6 +42,7 @@ def occupation_by_year(dat):
     start_time = datetime(year=date.year, month=1, day = 1)
     end_time = datetime(year=date.year, month=12, day = 30)
 
+
     occupied_spaces = OcuppiedSpace.objects.filter(
         occupied_at__gte=start_time,
         occupied_at__lt=end_time, 
@@ -55,7 +57,6 @@ def occupation_by_year(dat):
         occupied_at__lt=end_time, 
         space_id__classification = 1
     )
-
     for ocuppied in occupied_spaces:
         occupation_month_restaurants[int(ocuppied.occupied_at.month)-1] += 1 
 
@@ -68,6 +69,8 @@ def occupation_by_year(dat):
      
     for ocuppied in occupied_spaces:
         occupation_month_relax[int(ocuppied.occupied_at.month)-1] += 1 
+  
+
 
     colors = {
         "Restaurantes": "blue",
@@ -76,9 +79,13 @@ def occupation_by_year(dat):
     }
 
     months_labels = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
+
     fig, ax = plt.subplots()
+
     ax.plot(months_labels, occupation_month_restaurants, marker='o', linestyle='-', color=colors["Restaurantes"], label='Restaurantes')
+
     ax.plot(months_labels, occupation_month_relax, marker='o', linestyle='-', color=colors["Zonas de Descanso"], label='Zonas de Descanso')
+
     ax.plot(months_labels, occupation_month_sports, marker='o', linestyle='-', color=colors["Zonas Deportivas"], label='Zonas Deportivas')
 
     ax.set_xlabel("Meses")
@@ -87,11 +94,200 @@ def occupation_by_year(dat):
 
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
+    plt.savefig('media/occupation_by_month.png')
     buffer.seek(0)
     plt.close()
     image_base64 = base64.b64encode(buffer.read()).decode()
 
     return image_base64
+
+
+def occupancy_by_months(dat):
+    date = str(dat)
+    date = datetime.strptime(date, "%Y-%m-%d")
+    start_time = datetime(year=date.year, month=date.month, day = 1)
+    if date.month == 4 or date.month == 6 or date.month == 9 or date.month == 11:
+        delta = 30
+        div = [8,15,23,30]
+    elif date.month == 2:
+        delta = 28
+        div = [7,14,21,28]
+    else:
+        delta = 31
+        div = [7,15,23,31]
+
+    weeks_restaurants = [0]*4
+    weeks_sports = [0]*4
+    weeks_relax = [0]*4
+
+    
+    
+    end_time = start_time + timedelta(days=delta)
+
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time, 
+        space_id__classification = 0
+    )
+
+    for space in occupied_spaces:
+        day = space.occupied_at.day
+        if day <= div[0]:
+            weeks_sports[0] += 1 
+        elif day <= div[1]:
+            weeks_sports[1] +=1
+        elif day <= div[2]:
+            weeks_sports[2] +=1
+        else:
+            weeks_sports[3] +=1
+
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time, 
+        space_id__classification = 1
+    )
+    
+    for space in occupied_spaces:
+        day = space.occupied_at.day
+        if day <= div[0]:
+            weeks_restaurants[0] += 1 
+        elif day <= div[1]:
+            weeks_restaurants[1] +=1
+        elif day <= div[2]:
+            weeks_restaurants[2] +=1
+        else:
+            weeks_restaurants[3] +=1
+
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time, 
+        space_id__classification = 2
+    )
+    
+    for space in occupied_spaces:
+        day = space.occupied_at.day
+        if day <= div[0]:
+            weeks_relax[0] += 1 
+        elif day <= div[1]:
+            weeks_relax[1] +=1
+        elif day <= div[2]:
+            weeks_relax[2] +=1
+        else:
+            weeks_relax[3] +=1
+
+    colors = {
+        "Restaurantes": "blue",
+        "Zonas de Descanso": "purple",
+        "Zonas Deportivas": "green"
+    }
+
+    fig, ax = plt.subplots()
+
+    weeks_labels = ["Semana 1", "Semana 2" ,"Semana 3" ,"Semana 4"]
+
+    ax.plot(weeks_labels, weeks_restaurants, marker='o', linestyle='-', color=colors["Restaurantes"], label='Restaurantes')
+
+    ax.plot(weeks_labels, weeks_relax, marker='o', linestyle='-', color=colors["Zonas de Descanso"], label='Zonas de Descanso')
+
+    ax.plot(weeks_labels, weeks_sports, marker='o', linestyle='-', color=colors["Zonas Deportivas"], label='Zonas Deportivas')
+
+    ax.set_xlabel("Semanas")
+    ax.set_ylabel("Ocupación")
+    ax.set_title("Ocupación por Semana y Categoría")
+
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')      
+    plt.savefig('media/occupation_by_week.png')
+
+    buffer.seek(0)
+    plt.close()
+    image_base64 = base64.b64encode(buffer.read()).decode()
+
+    return image_base64
+        
+    
+def occupation_by_day(dat):
+    date = str(dat)
+    date = datetime.strptime(date, "%Y-%m-%d")
+    occupation_hours_sports = [0]*24
+    occupation_hours_restaurants = [0]*24
+    occupation_hours_relax = [0]*24
+    start_time = datetime(year=date.year, month=date.month, day=date.day, hour=5, minute=0, second=0)
+    end_time = start_time + timedelta(hours=19)
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time,
+        space_id__classification = 0
+    )
+    for space in occupied_spaces:
+        first_hour = int(space.occupied_at.hour)
+        last_hour = int(space.unoccupied_at.hour)
+        while first_hour <=last_hour:
+            occupation_hours_sports[first_hour] =occupation_hours_sports[first_hour] +1
+            first_hour += 1
+    occupation_hours_sports = occupation_hours_sports[5:25]
+
+
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time,
+        space_id__classification = 1
+    )
+    for space in occupied_spaces:
+        first_hour = int(space.occupied_at.hour)
+        last_hour = int(space.unoccupied_at.hour)
+        while first_hour <=last_hour:
+            occupation_hours_restaurants[first_hour] =occupation_hours_restaurants[first_hour] +1
+            first_hour += 1
+    occupation_hours_restaurants = occupation_hours_restaurants[5:25]
+
+
+    occupied_spaces = OcuppiedSpace.objects.filter(
+        occupied_at__gte=start_time,
+        occupied_at__lt=end_time,
+        space_id__classification = 2
+    )
+    for space in occupied_spaces:
+        first_hour = int(space.occupied_at.hour)
+        last_hour = int(space.unoccupied_at.hour)
+        while first_hour <=last_hour:
+            occupation_hours_relax[first_hour] =occupation_hours_relax[first_hour] +1
+            first_hour += 1
+    occupation_hours_relax = occupation_hours_relax[5:25]
+
+    hours = []
+    for i in range(5,24):
+        hours.append(str(i))
+    colors = {
+        "Restaurantes": "blue",
+        "Zonas de Descanso": "purple",
+        "Zonas Deportivas": "green"
+    }
+
+    fig, ax = plt.subplots()
+
+    ax.plot(hours, occupation_hours_restaurants, marker='o', linestyle='-', color=colors["Restaurantes"], label='Restaurantes')
+
+    ax.plot(hours, occupation_hours_relax, marker='o', linestyle='-', color=colors["Zonas de Descanso"], label='Zonas de Descanso')
+
+    ax.plot(hours, occupation_hours_sports, marker='o', linestyle='-', color=colors["Zonas Deportivas"], label='Zonas Deportivas')
+
+    ax.set_xlabel("Horas")
+    ax.set_ylabel("Ocupación")
+    ax.set_title("Ocupación por día y Categoría")
+
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png') 
+    plt.savefig("media/occupation_by_day")
+
+    buffer.seek(0)
+    plt.close()
+    image_base64 = base64.b64encode(buffer.read()).decode()
+
+    return image_base64
+
+        
+
 
 
 def occupation_by_hours(dat):
@@ -132,6 +328,7 @@ def occupation_by_hours(dat):
     plt.xticks(rotation=45) 
     buffer = BytesIO()
     plt.savefig(buffer, format='png')
+    plt.savefig('media/occupation_by_hours.png')
     buffer.seek(0)
     plt.close()
     image_base64 = base64.b64encode(buffer.read()).decode()
@@ -182,39 +379,87 @@ def most_used_space(type_space, start_time, top=5):
     plt.xticks(rotation=45)
     plt.tight_layout()
     buffer = BytesIO()
-    plt.savefig(buffer, format='png')
+    
+    
+    if type_space == 0:
+        plt.title('Espacios deportivos')
+        plt.savefig(buffer, format='png')
+        plt.savefig("media/most_used_sports")
+    elif type_space == 1:
+        plt.title('Mesas de restaurantes')
+        plt.savefig(buffer, format='png')
+        plt.savefig("media/most_used_restaurants")
+    else:
+        plt.title('Zonas de descanso')
+        plt.savefig(buffer, format='png')
+        plt.savefig("media/most_used_relax")
+
     buffer.seek(0)
     plt.close()
     image_base64 = base64.b64encode(buffer.read()).decode()
 
     return image_base64
 
-
-def info(request):
+def get_common_context(request):
     if request.method == 'POST':
         user_date = request.POST.get('start_date', None)
-        if user_date is not None:
+        if user_date is not None and len(user_date) > 2:
             start_date = user_date.replace('/', '-')
         else:
             start_date = datetime.now().date()
-
     else:
         start_date = datetime.now().date()
 
+    spaces = OcuppiedSpace.objects.all()
+    myFilter = OccupiedSpaceFilter(request.GET, queryset=spaces)
+
+    if 'start' in request.GET and 'end' in request.GET:
+        start_date1 = request.GET['start']
+        end_date1 = request.GET['end']
+        if len(start_date1) > 1 and len(end_date1) > 1:
+            spaces = myFilter.qs
+            spaces = spaces.filter(occupied_at__gte=start_date1, occupied_at__lte=end_date1)
+        else:
+            spaces = None
+    else:
+        spaces = None
+
     currents = current_occupation()
-    context = {
-        'current_occupation_sports':currents[0],
-        'current_occupation_restaurants':currents[1],
-        'current_occupation_relax':currents[2],
+
+    common_context = {
+        'current_occupation_sports': currents[0],
+        'current_occupation_restaurants': currents[1],
+        'current_occupation_relax': currents[2],
         'most_used_sports': most_used_space(0, start_date),
-        'most_used_restaurants':most_used_space(1, start_date),
+        'most_used_restaurants': most_used_space(1, start_date),
         'most_used_relax': most_used_space(2, start_date),
-        'current_graph_sports': occupancy(20,currents[0]),
+        'current_graph_sports': occupancy(20, currents[0]),
         'current_graph_restaurants': occupancy(500, currents[1]),
         'current_graph_relax': occupancy(80, currents[2]),
-        'occupation_by_hours' : occupation_by_hours(start_date),
-        'occupation_by_year' : occupation_by_year(start_date),
-        'filter_date' : start_date,
+        'occupation_by_hours': occupation_by_hours(start_date),
+        'occupation_by_year': occupation_by_year(start_date),
+        'occupation_by_month': occupancy_by_months(start_date),
+        'occupation_by_day': occupation_by_day(start_date),
+        'spaces': spaces,
+        'filter_date': start_date,
+        'filter': myFilter,
     }
+    
+    return common_context
 
-    return render(request, 'data.html', context)
+def gen_pdf(request):
+    common_context = get_common_context(request)
+    template = get_template('pdf_gen.html')
+    html = template.render(common_context)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("UTF-8")), result)
+    
+    if not pdf.err:
+        response = HttpResponse(result.getvalue(), content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="informe.pdf"'
+        return response
+    return HttpResponse('Error al generar el PDF: %s' % pdf.err)
+
+def info(request):
+    common_context = get_common_context(request)
+    return render(request, 'data.html', common_context)

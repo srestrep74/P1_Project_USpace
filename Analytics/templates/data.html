@@ -1,206 +1,141 @@
 {% include 'navbar.html' %}
-{%load static %}
-<hr>
-<br>
-<img src="data:occupation_by_year/png;base64,{{ occupation_by_year }}" alt="image description">
-<br>
-<br>
-<div class='container_ac'> 
-  <h6 class="text-4xl font-extrabold dark:text-white">Ocupaciones actuales</h6>
+{% load static %}
+<div class='container_ac mt-8'>
+  <h6 class="text-4xl font-extrabold dark:text-white text-center">Ocupaciones actuales</h6>
   <div class='occu_actual'>
-      <div class="image-container">
-          <figure class="max-w-lg">
-              <img class="h-auto max-w-full rounded-lg" src="data:current_graph_restaurants/png;base64,{{ current_graph_restaurants }}" alt="image description">
-              <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Mesas de restaurantes : {{ current_occupation_restaurants }}</figcaption>
-          </figure>
-      </div>
-      
-      <div class="image-container">
-          <figure class="max-w-lg">
-              <img class="h-auto max-w-full rounded-lg" src="data:current_graph_sports/png;base64,{{ current_graph_sports }}" alt="image description">
-              <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Escenarios deportivos : {{ current_occupation_sports }}</figcaption>
-          </figure>
-      </div>
-      
-      <div class="image-container">
-          <figure class="max-w-lg">
-              <img class="h-auto max-w-full rounded-lg" src="data:current_graph_relax/png;base64,{{ current_graph_relax }}" alt="image description">
-              <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Zonas de descanso : {{ current_occupation_relax }}</figcaption>
-          </figure>
-      </div>
-  </div>
-</div>
-<hr>
-<br>
-
-<div class='container_ac'><h6 class="text-4xl font-extrabold dark:text-white">Fecha de busqueda</h6></div>
-    <p class="text-2xl text-gray-900 dark:text-white">Fecha de filtro : {{ filter_date }}</p>
-    <tr>
-        <th><label for="id_start_date">Selecciona fecha de inicio:</label></th>
-        <td>
-            <div class="relative max-w-sm">
-                <form action="{% url 'info' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="relative" style="margin-left: 5px;">
-                        <i class="fas fa-calendar-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" style="margin-left: 15px;"></i>
-                        <input name="start_date" id="start_date" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecciona una fecha">
-                    </div>
-                    <button class="custom-button" type="submit" style="color : blue;">Buscar</button>
-                </form>
-            </div>
-        </td>
-    </tr>
-    <hr>
-    <br>
-    <div class='container_ac'><h6 class="text-4xl font-extrabold dark:text-white">Ocupaciones por hora</h6></div>
-    <div class="justify-center"><p class="text-2xl text-gray-900 dark:text-white">{{ filter_date }}</p>
-</div>
-
-
-<div class="image-container flex items-center justify-center">
-    <figure class="max-w-lg">
-        <img class="w-full h-auto rounded-lg" src="data:occupation_by_hours/png;base64,{{ occupation_by_hours }}" alt="image description">
-        <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
-    </figure>
-</div>
-
-<hr>
-<br>
-
-<div class='container_ac'><h6 class="text-4xl font-extrabold dark:text-white">Top 5 espacios mas utilizados desde {{ filter_date }} hasta hoy</h6></div>
-    <div class='occu_actual'>
-      <div class="image-container">
-          <figure class="max-w-lg">
-              <img class="h-auto max-w-full rounded-lg" src="data:most_used_restaurants/png;base64,{{ most_used_restaurants }}" alt="image description">
-              <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
-          </figure>
-      </div>
-      
-      <div class="image-container">
-          <figure class="max-w-lg">
-              <img class="h-auto max-w-full rounded-lg" src="data:most_used_sports/png;base64,{{ most_used_sports }}" alt="image description">
-              <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
-          </figure>
-      </div>
-      
-      <div class="image-container">
-          <figure class="max-w-lg">
-              <img class="h-auto max-w-full rounded-lg" src="data:most_used_relax/png;base64,{{ most_used_relax }}" alt="image description">
-              <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
-          </figure>
-      </div>
-  </div>
-</div>
-
-<!--<div class='container_ac'> 
-    <h6 class="text-4xl font-extrabold dark:text-white">Ocupaciones Actuales</h6>
-    <div class='occu_actual'>
-        <div class="image-container">
-            <figure class="max-w-lg">
-                <img class="h-auto max-w-full rounded-lg" src="data:current_graph_restaurants/png;base64,{{ current_graph_restaurants }}" alt="image description">
-                <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Mesas de restaurantes : {{ current_occupation_restaurants }}</figcaption>
-            </figure>
-        </div>
-        
-        <div class="image-container">
-            <figure class="max-w-lg">
-                <img class="h-auto max-w-full rounded-lg" src="data:current_graph_sports/png;base64,{{ current_graph_sports }}" alt="image description">
-                <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Escenarios deportivos : {{ current_occupation_sports }}</figcaption>
-            </figure>
-        </div>
-        
-        <div class="image-container">
-            <figure class="max-w-lg">
-                <img class="h-auto max-w-full rounded-lg" src="data:current_graph_relax/png;base64,{{ current_graph_relax }}" alt="image description">
-                <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Zonas de descanso : {{ current_occupation_relax }}</figcaption>
-            </figure>
-        </div>
+    <div class="image-container">
+      <figure class="max-w-lg mx-auto">
+        <img class="h-auto max-w-full rounded-lg" src="data:current_graph_restaurants/png;base64,{{ current_graph_restaurants }}" alt="Mesas de restaurantes">
+        <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Mesas de restaurantes : {{ current_occupation_restaurants }}</figcaption>
+      </figure>
     </div>
+
+    <div class="image-container">
+      <figure class="max-w-lg mx-auto">
+        <img class="h-auto max-w-full rounded-lg" src="data:current_graph_sports/png;base64,{{ current_graph_sports }}" alt="Escenarios deportivos">
+        <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Escenarios deportivos : {{ current_occupation_sports }}</figcaption>
+      </figure>
+    </div>
+
+    <div class="image-container">
+      <figure class="max-w-lg mx-auto">
+        <img class="h-auto max-w-full rounded-lg" src="data:current_graph_relax/png;base64,{{ current_graph_relax }}" alt="Zonas de descanso">
+        <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Zonas de descanso : {{ current_occupation_relax }}</figcaption>
+      </figure>
+    </div>
+  </div>
 </div>
-<hr>
-<br>
-<div class='container_ac'><h6 class="text-4xl font-extrabold dark:text-white">Filtrar por espacio</h6></div>
-<form method="get" class="custom-form">
-    <tr>
-    <th><label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="id_space_id">Espacio</label></th>
-    <td>
-        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="space_id" id="id_space_id">
-            <option value="" selected>---------</option>
-
-            <option value="2">Cancha principal</option>
-
-            <option value="3">Cancha secundaria</option>
-
-            <option value="4">Mesa de ping pong 1</option>
-
-            <option value="5">Mesa de ping pong 2</option>
-
-            <option value="31">Hamaca 1 - Bloque de Musica</option>
-
-            <option value="32">Piscina</option>
-
-        </select>
-    </td>
-  </tr>
-
-  <tr>
-    <th><label for="id_start_date">Fecha Fin:</label></th>
-    <td>
-      
-      
-      
-        <div class="relative max-w-sm">
-            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-                </svg>
-            </div>
-            <input name="start_date" id="id_start_date" datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-        </div>
-  
-      
-        </td>
-    </tr>
-
-  <tr>
-    <th><label for="id_end_date">Fecha Fin</label></th>
-    <td>
-      
-      
-      <div class="relative max-w-sm">
-        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-           <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
-            </svg>
-        </div>
-        <input name="end_date" id="id_end_date" datepicker datepicker-autohide type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date">
-      </div>
-      
-        
-      
-    </td>
-  </tr>
-    <button class="custom-button" type="submit" style="color : blue;">Search</button>
-
-</form>
-<div class='container_ac'>
-    <p class="text-2xl text-gray-900 dark:text-white">Numero de veces ocupado : {{ spaces }}</p>
-    
-    <div class='occu_actual'>
-        <figure class="max-w-lg">
-            <img class="h-auto max-w-full rounded-lg" src="data:most_used_restaurants/png;base64,{{ most_used_restaurants }}" alt="image description">
-            <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
-          </figure>
-          <figure class="max-w-lg">
-            <img class="h-auto max-w-full rounded-lg" src="data:most_used_sports/png;base64,{{ most_used_sports }}" alt="image description">
-            <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
-          </figure>
-          <figure class="max-w-lg">
-            <img class="h-auto max-w-full rounded-lg" src="data:most_used_relax/png;base64,{{ most_used_relax }}" alt="image description">
-            <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
-          </figure>
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold mb-4 text-center">Filtro por espacio individual</h1>
+  <form method="get" class="text-center">
+    {{filter.form}}
+    <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full mt-4" type="submit">Buscar</button>
+  </form>
 </div>
-</div>-->
+<hr class="mt-8">
+<div class="container mx-auto p-4">
+  <h1 class="text-2xl font-bold text-center">Veces Ocupado</h1>
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead>
+      <tr>
+        <th class="px-6 py-3 bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase">Space ID</th>
+        <th class="px-6 py-3 bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase">Ocupado en</th>
+        <th class="px-6 py-3 bg-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase">Desocupado en</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for space in spaces %}
+      <tr>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ space.space_id }}</td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ space.occupied_at }}</td>
+        <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">{{ space.unoccupied_at }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<div class='container_ac mt-8'>
+  <h6 class="text-4xl font-extrabold dark:text-white text-center">Fecha de búsqueda</h6>
+</div>
+<hr class="mt-8">
+<p class="text-2xl text-gray-900 dark:text-white text-center mt-4">Fecha de filtro: {{ filter_date }}</p>
+<tr>
+  <td class="text-center mt-4">
+    <div class="relative max-w-sm mx-auto">
+      <form id="form" action="{% url 'info' %}" method="POST">
+        {% csrf_token %}
+        <div class="relative" style="margin-left: 5px;">
+          <i class="fas fa-calendar-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" style="margin-left: 15px;"></i>
+          <input name="start_date" id="start_date" type="date" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Selecciona una fecha">
+        </div>
+        <button class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full mt-4" type="submit" style="color: blue;">Buscar</button>
+      </form>
+    </div>
+  </td>
+</tr>
+<div class="container mx-auto mt-8">
+  <h1 class="text-2xl font-bold text-center">Ocupaciones</h1>
+  <div class="image-container flex justify-center">
+    <figure class="max-w-lg mx-2">
+      <img src="data:occupation_by_year/png;base64,{{ occupation_by_year }}" alt="Imagen de ocupación por año" class="max-w-md">
+    </figure>
+    <figure class="max-w-lg mx-2">
+      <img src="data:occupation_by_month/png;base64,{{ occupation_by_month }}" alt="Imagen de ocupación por mes" class="max-w-md">
+    </figure>
+    <figure class="max-w-lg mx-2">
+      <img src="data:occupation_by_day/png;base64,{{ occupation_by_day }}" alt="Imagen de ocupación por dia" class="max-w-md">
+    </figure>
+  </div>
+</div>
+<hr class="mt-8">
+<div class='container_ac mt-8'>
+  <h6 class="text-4xl font-extrabold dark:text-white text-center">Ocupaciones por hora</h6>
+</div>
+<div class="justify-center mt-4">
+  <p class="text-2xl text-gray-900 dark:text-white text-center">{{ filter_date }}</p>
+</div>
+<div class="image-container flex items-center justify-center mt-4">
+  <figure class="max-w-lg mx-auto">
+    <img class="w-full rounded-lg" src="data:occupation_by_hours/png;base64,{{ occupation_by_hours }}" alt="Ocupaciones por hora">
+    <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+  </figure>
+</div>
+<hr class="mt-8">
+<div class='container_ac mt-8'>
+  <h6 class="text-4xl font-extrabold dark:text-white text-center">Top 5 espacios más utilizados desde {{ filter_date }} hasta hoy</h6>
+</div>
+<div class='occu_actual'>
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="data:most_used_restaurants/png;base64,{{ most_used_restaurants }}" alt="Imagen de restaurantes más utilizados">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
 
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="data:most_used_sports/png;base64,{{ most_used_sports }}" alt="Imagen de deportes más utilizados">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
 
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="data:most_used_relax/png;base64,{{ most_used_relax }}" alt="Imagen de zonas de descanso más utilizadas">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
+</div>
 
+<div class="fixed z-50 -translate-x-1/2 bottom-4 left-1/2">
+  <div class="bg-white inline-block rounded-full" style="padding: 15px;">
+      <a href="{% url 'gen_pdf' %}"  data-tooltip-target="tooltip-new" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+        <i class="fa-solid fa-file-arrow-down"></i>
+          <span class="sr-only">Descargar reporte</span>
+      </a>
+  </div>
+  <div id="tooltip-new" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+      Descargar reporte
+      <div class="tooltip-arrow" data-popper-arrow></div>
+  </div>
+</div>

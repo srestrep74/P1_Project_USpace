@@ -1,0 +1,65 @@
+{% load static %}
+<hr class="mt-8">
+<p class="text-2xl text-gray-900 dark:text-white text-center mt-4">Fecha de filtro: {{ filter_date }}</p>
+<hr class="mt-8">
+<div class='container_ac mt-8'>
+  <h6 class="text-4xl font-extrabold dark:text-white text-center">Ocupaciones por hora</h6>
+</div>  
+<div class="image-container flex items-center justify-center mt-4">
+  <figure class="max-w-lg mx-auto">
+    <img class="w-full rounded-lg" src="media/occupation_by_hours.png" alt="Ocupaciones por hora">
+    <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+  </figure>
+</div>
+<hr class="mt-8">
+<div class='container_ac mt-8'>
+  <h6 class="text-4xl font-extrabold dark:text-white text-center">Top 5 espacios más utilizados desde {{ filter_date }} hasta hoy</h6>
+</div>
+<div class='occu'>
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="media/occupation_by_month.png" alt="Imagen de restaurantes más utilizados">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
+
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="media/occupation_by_week.png" alt="Imagen de deportes más utilizados">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
+
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="media/occupation_by_day.png" alt="Imagen de zonas de descanso más utilizadas">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
+</div>
+<br/>
+<br/>
+<div class='occu_actual'>
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="media/most_used_restaurants.png" alt="Imagen de restaurantes más utilizados">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
+  <br/>
+  <br/>
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="media/most_used_sports.png" alt="Imagen de deportes más utilizados">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
+  <br/>
+  <br/>
+  <div class="image-container mx-auto">
+    <figure class="max-w-lg">
+      <img class="max-w-full rounded-lg" src="media/most_used_relax.png" alt="Imagen de zonas de descanso más utilizadas">
+      <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400"></figcaption>
+    </figure>
+  </div>
+</div>

@@ -13,7 +13,7 @@ from .models import *
 from django.contrib.auth.models import Group 
 from Admins.models import Space
 from django.http import HttpResponse
-from django.db.models import Q
+from django.db.models import Q, Avg
 from .models import *
 from .decorators import *
 from Spaces.models import *
@@ -28,7 +28,7 @@ def comment(request, space):
     space = Space.objects.get(id=space)
     comments = Comment.objects.all().filter(space=space)
     if request.method == 'POST':
-        rating = 0
+        rating = request.POST.get('rating')
         user = request.user
         comment = request.POST.get('comment')
         rev = Comment(
@@ -40,10 +40,10 @@ def comment(request, space):
         rev.save()
         return redirect('search_spaces')
 
-    return render(request, "comment.html" , {'space':space, 'comments':comments})
+    return render(request, "comment.html" , {'space': space, 'comments': comments})
 
 
-def sendNotifications():
+"""def sendNotifications():
     current_time = timezone.now().astimezone(timezone.get_current_timezone())
 
     notifications = Notification.objects.filter(
@@ -67,7 +67,7 @@ def sendNotifications():
 
 scheduler = BackgroundScheduler()
 scheduler.add_job(sendNotifications, 'cron', minute='*')
-scheduler.start()
+scheduler.start()"""
 
 
 @login_required
@@ -123,8 +123,9 @@ def searchSpaces(request):
 
         query &= filter_q
 
-    spaces = Space.objects.filter(query)
+    spaces = Space.objects.filter(query).annotate(avg_rating=Avg('comment__rating'))
     success_message = None
+
     if messages.get_messages(request):
         success_message = messages.get_messages(request).__str__()
 
