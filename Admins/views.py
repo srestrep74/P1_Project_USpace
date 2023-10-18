@@ -1,7 +1,14 @@
 from django.shortcuts import render, redirect
 from .models import *
+from Spaces.models import *
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import *
+
+
+def showReports(request):
+    damages = Damage.objects.filter()
+
+    return render(request, 'view_report.html', {'damages': damages})
 
 
 def viewSpaces(request):
