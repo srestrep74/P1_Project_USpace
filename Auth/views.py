@@ -24,6 +24,21 @@ from USpace.settings import EMAIL_HOST_USER
 from django.utils import timezone
 
 
+def reportDamage(request):
+    if request.method == 'POST':
+        form = DamageForm(request.POST, request.FILES)
+        if form.is_valid():
+            damage = form.save(commit=False)
+            damage.save()
+            messages.success(request, 'El daño se ha reportado correctamente')
+            return redirect('search_spaces')
+        
+    else:
+        form = DamageForm()
+
+    return render(request, 'damage.html', {'form': form})
+
+
 def comment(request, space):
     space = Space.objects.get(id=space)
     comments = Comment.objects.all().filter(space=space)
