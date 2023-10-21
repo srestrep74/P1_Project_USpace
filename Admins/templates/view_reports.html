@@ -1,6 +1,7 @@
 {% include 'navbar.html' %}
 {% load static %}
 {% block content %}
+    <div class="container mx-auto" style="margin-top: 20px;">
         {% if messages %}
             {% for message in messages %}
                 <div id="alert-3" class="flex items-center p-4 mb-4 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
@@ -21,22 +22,75 @@
             {% endfor %}
         {% endif %}
 
-        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for damage in damages %}
             <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{damage.space_name}}</h5>
                 </a>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{damage.description}}</p>
-                <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                    Solucionado
-                    <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                    </svg>
-                </a>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{damage.date}}</p>
+                <p class="mb-3 font-normal text-black-700 dark:text-black-400 truncate-description" style="max-height: 100px; overflow: hidden;">
+                    {{damage.description}}
+                </p>
+                
+                <!-- Contenedor de descripción completa (inicialmente oculto) -->
+                <div class="description-full hidden">
+                    {{damage.description}}
+                </div>
+                
+                <!-- Botón para mostrar/desplegar descripción -->
+                <button type="button" class="toggle-description">
+                    <span class="toggle-icon text-blue-500""><i class="fa-solid fa-ellipsis"></i></span>
+                    <span class="sr-only">Toggle Description</span>
+                </button>
+
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400" style="font-size: 14px; color: gray;">{{damage.date}}</p>
+                {% if damage.solved == 0 %}
+                    <a href="{% url 'fixed' damage.id %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Marcar como solucionado
+                    </a>
+                {% else %}
+                    <span class="text-sm text-gray-500 dark:text-gray-400"><i class="fa-solid fa-check" style="margin-right: 3px;"></i>Solucionado</span>
+                {% endif %}
             </div>
             {% endfor %}
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const toggleButtons = document.querySelectorAll('.toggle-description');
+
+            toggleButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const container = this.parentElement;
+                    const truncatedDescription = container.querySelector('.truncate-description');
+                    const fullDescription = container.querySelector('.description-full');
+                    const toggleIcon = this.querySelector('.toggle-icon'); // Obtener el ícono
+
+                    if (truncatedDescription.style.display === 'none' || truncatedDescription.style.display === '') {
+                        truncatedDescription.style.display = 'block'; // Mostrar la descripción truncada
+                        fullDescription.style.display = 'none'; // Ocultar el contenido completo
+                        toggleIcon.innerHTML = '<i class="fas fa-ellipsis-h"></i>'; // Cambiar el ícono a "..."
+                    } else {
+                        truncatedDescription.style.display = 'none'; // Ocultar la descripción truncada
+                        fullDescription.style.display = 'block'; // Mostrar el contenido completo
+                        toggleIcon.innerHTML = '<i class="fas fa-times"></i>'; // Cambiar el ícono a "x"
+                    }
+                });
+            });
+
+            const truncateElements = document.querySelectorAll('.truncate-description');
+
+            truncateElements.forEach(function (element) {
+                const fullHeight = element.scrollHeight;
+
+                if (fullHeight <= 100) {
+                    // El contenido se ajusta correctamente, ocultar el botón
+                    const toggleButton = element.parentElement.querySelector('.toggle-description');
+                    toggleButton.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
 {% endblock content %}

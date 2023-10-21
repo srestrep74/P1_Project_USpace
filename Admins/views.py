@@ -8,7 +8,14 @@ from .forms import *
 def showReports(request):
     damages = Damage.objects.filter()
 
-    return render(request, 'view_report.html', {'damages': damages})
+    return render(request, 'view_reports.html', {'damages': damages})
+
+
+def fixedDamage(request, id):
+    damage = Damage.objects.get(id=id)
+    damage.solved = True
+    damage.save()
+    return redirect('view_reports')
 
 
 def viewSpaces(request):
