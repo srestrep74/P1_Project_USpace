@@ -5,6 +5,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from .forms import *
 
 
+def detailedReport(request, id):
+    damage = Damage.objects.get(pk=id)
+
+    return render(request, 'detailed_damage.html', {'damage': damage})
+
+
 def showReports(request):
     damages = Damage.objects.filter()
 

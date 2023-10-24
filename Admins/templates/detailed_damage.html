@@ -1,0 +1,28 @@
+{% include 'navbar.html' %}
+{% block content %}
+    <div class="flex justify-center items-center h-screen" style="margin-top: 45px;">
+        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <img class="rounded-t-lg" src="{{ damage.image.url }}">
+            <div class="p-5">
+                <a href="#">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ damage.name }}</h5>
+                </a>
+                <p class="mb-3 font-normal text-black-700 dark:text-black-400 truncate-description">
+                    {{ damage.description }}
+                </p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400" style="font-size: 14px; color: gray;">{{damage.date}}</p>
+                {% if damage.solved == 0 %}
+                    <a href="{% url 'fixed' damage.id %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Marcar como solucionado
+                    </a>
+                {% else %}
+                    <span class="text-sm text-gray-500 dark:text-gray-400"><i class="fa-solid fa-check" style="margin-right: 3px;"></i>Solucionado</span>
+                {% endif %}
+                <a href="{% url 'view_reports' %}" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" style="display: block; margin-top: 15px;">
+                    Volver
+                </a>
+            </div>
+        </div>
+    </div> 
+    
+{% endblock content %}

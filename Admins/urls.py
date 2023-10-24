@@ -9,4 +9,5 @@ urlpatterns = [
     path('delete_space/<int:id>' , views.deleteSpace, name='delete_space'),
     path('view_report/' , views.showReports, name='view_reports'),
     path('fixed/<int:id>' , views.fixedDamage, name='fixed'),
+    path('detailed_damage/<int:id>' , views.detailedReport, name='detailed_damage')
 ]

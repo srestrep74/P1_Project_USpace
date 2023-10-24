@@ -25,23 +25,18 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {% for damage in damages %}
             <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
+                <a>
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{damage.space_name}}</h5>
                 </a>
                 <p class="mb-3 font-normal text-black-700 dark:text-black-400 truncate-description" style="max-height: 100px; overflow: hidden;">
                     {{damage.description}}
                 </p>
-                
-                <!-- Contenedor de descripción completa (inicialmente oculto) -->
-                <div class="description-full hidden">
-                    {{damage.description}}
-                </div>
-                
-                <!-- Botón para mostrar/desplegar descripción -->
-                <button type="button" class="toggle-description">
-                    <span class="toggle-icon text-blue-500""><i class="fa-solid fa-ellipsis"></i></span>
-                    <span class="sr-only">Toggle Description</span>
-                </button>
+
+                <a href="{% url 'detailed_damage' damage.id %}">
+                    <p class="mb-3 font-normal text-blue-700 dark:text-blue-400 truncate-description">
+                        Ver más
+                    </p>
+                </a>
 
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400" style="font-size: 14px; color: gray;">{{damage.date}}</p>
                 {% if damage.solved == 0 %}
