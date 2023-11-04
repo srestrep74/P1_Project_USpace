@@ -117,30 +117,41 @@
                     <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>Clasificación:</b> {{ space.get_classification_display }}</p>
                     <div class="flex justify-between">
                         <div>
-                            <a href="{% url 'comment' space.id %}" data-tooltip-target="tooltip-comment" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
-                                <i class="fa-solid fa-comment"></i>
-                                <span class="sr-only">Comment Icon</span>
-                            </a>
-                            <div id="tooltip-comment" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                Comentar
-                                <div class="tooltip-arrow" data-popper-arrow></div>
-                            </div>                                                        
-                            <button type="button" data-tooltip-target="tooltip-map" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
-                                <i class="fa-solid fa-map-location-dot"></i>
-                                <span class="sr-only">Location Icon</span>
-                            </button>
-                            <div id="tooltip-map" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                Ver en mapa
-                                <div class="tooltip-arrow" data-popper-arrow></div>
-                            </div>                               
-                            <a href="{% url 'create_reminder' user.id space.id %}" data-tooltip-target="tooltip-reminder" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
-                                <i class="fa-solid fa-bell"></i>
-                                <span class="sr-only">Reminder Icon</span>
-                            </a>
-                            <div id="tooltip-reminder" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                                Crear recordatorio
-                                <div class="tooltip-arrow" data-popper-arrow></div>
-                            </div> 
+                            {% if request.user.is_authenticated %}
+                                <a href="{% url 'comment' space.id %}" data-tooltip-target="tooltip-comment" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                                    <i class="fa-solid fa-comment"></i>
+                                    <span class="sr-only">Comment Icon</span>
+                                </a>
+                                <div id="tooltip-comment" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    Comentar
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>                              
+                                <a href="{% url 'create_reminder' user.id space.id %}" data-tooltip-target="tooltip-reminder" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                                    <i class="fa-solid fa-bell"></i>
+                                    <span class="sr-only">Reminder Icon</span>
+                                </a>
+                                <div id="tooltip-reminder" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    Crear recordatorio
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>
+                            {% else %}
+                                <a href="{% url 'signup' %}" data-tooltip-target="tooltip-comment" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                                    <i class="fa-solid fa-comment"></i>
+                                    <span class="sr-only">Comment Icon</span>
+                                </a>
+                                <div id="tooltip-comment" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    Inica sesión
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>                          
+                                <a href="{% url 'signup' %}" data-tooltip-target="tooltip-reminder" class="text-blue-700 border border-blue-700 hover:bg-blue-700 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:focus:ring-blue-800 dark:hover:bg-blue-500">
+                                    <i class="fa-solid fa-bell"></i>
+                                    <span class="sr-only">Reminder Icon</span>
+                                </a>
+                                <div id="tooltip-reminder" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                                    Inica sesión
+                                    <div class="tooltip-arrow" data-popper-arrow></div>
+                                </div>
+                            {%endif%}
                         </div>
                         <div style="margin-top: 5px;">
                             <p class="mb-3 font-normal text-black-700 dark:text-black-400"><b>{{ space.occupancy }}/{{ space.max_occupancy }}</b></p>
