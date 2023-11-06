@@ -6,10 +6,10 @@ const bounds = [
 
 // Crear un mapa centrado en la Universidad EAFIT y con límite de visualización en la zona de EAFIT
 const map = L.map('map', {
-    maxBounds: bounds,
-    maxBoundsViscosity: 1.0,
     minZoom : 18, // Ajusta el límite incluso cuando el usuario intente hacer zoom fuera de los límites.
-}).setView([6.200146, -75.577256], 20);
+    dragging: true,
+    zoomControl: false
+}).setView([6.20019, -75.57844], 20);
 
 // Agregar la capa base de OpenStreetMap
 //L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}').addTo(map);

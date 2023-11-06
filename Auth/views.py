@@ -24,6 +24,11 @@ from USpace.settings import EMAIL_HOST_USER
 from django.utils import timezone
 
 
+def signupAlert(request):
+    messages.success(request, 'Debes iniciar sesión para acceder a esta funcionalidad')
+    return redirect('search_spaces')
+
+
 def reportDamage(request):
     if request.method == 'POST':
         form = DamageForm(request.POST, request.FILES)
