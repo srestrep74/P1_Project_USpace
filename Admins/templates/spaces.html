@@ -14,10 +14,10 @@
             </div>
         </form>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {% for space in spaces %}
             <div class="bg-white border border-gray-200 rounded-lg shadow-xl dark:bg-gray-800 dark:border-gray-700" style="height: fit-content; margin-bottom: 35px;">
-                <img class="aspect-video w-96 rounded-t-lg object-cover object-center" style="height: 140px;" src="{{ space.image.url }}" alt="">
+                <img class="aspect-video w-96 rounded-t-lg object-cover object-center" style="height: 140px;" src="{{ space.image.url }}" alt="{{ space.name }}">
                 <div class="px-6 py-4">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ space.name }}</h5>
                     <!-- Contenedor de descripción truncada -->
