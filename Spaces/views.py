@@ -12,7 +12,8 @@ from Auth.models import *
 
 
 def home(request):
-    return render(request , 'Map/home_user.html')
+    map_url = request.path
+    return render(request , 'Map/home_user.html', {'map_url': map_url})
 
 
 def spaces_data(request):

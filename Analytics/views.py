@@ -396,6 +396,7 @@ def most_used_space(type_space, start_time, top=5):
 
 
 def get_common_context(request):
+    info_url = request.path
     if request.method == 'POST':
         user_date = request.POST.get('start_date', None)
         if user_date is not None and len(user_date) > 2:
@@ -439,6 +440,7 @@ def get_common_context(request):
         'spaces': spaces,
         'filter_date': start_date,
         'filter': myFilter,
+        'info_url': info_url
     }
     
     return common_context

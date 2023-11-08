@@ -30,6 +30,7 @@ def signupAlert(request):
 
 
 def reportDamage(request):
+    search_url = request.path
     if request.method == 'POST':
         form = DamageForm(request.POST, request.FILES)
         if form.is_valid():
@@ -41,10 +42,11 @@ def reportDamage(request):
     else:
         form = DamageForm()
 
-    return render(request, 'damage.html', {'form': form})
+    return render(request, 'damage.html', {'search_url': search_url, 'form': form})
 
 
 def comment(request, space):
+    search_url = request.path
     space = Space.objects.get(id=space)
     comments = Comment.objects.all().filter(space=space)
     if request.method == 'POST':
@@ -60,7 +62,7 @@ def comment(request, space):
         rev.save()
         return redirect('search_spaces')
 
-    return render(request, "comment.html" , {'space': space, 'comments': comments})
+    return render(request, "comment.html" , {'search_url': search_url, 'space': space, 'comments': comments})
 
 
 def sendNotifications():
@@ -92,6 +94,7 @@ scheduler.start()
 
 @login_required
 def createReminder(request, user, space):
+    search_url = request.path
     if request.method == 'POST':
         form = NotificationForm(request.POST)
         if form.is_valid():
@@ -108,10 +111,11 @@ def createReminder(request, user, space):
         form = NotificationForm()
         space_obj = Space.objects.get(pk = space)
 
-    return render(request, 'create_reminder.html', {'form': form, 'space': space_obj})
+    return render(request, 'create_reminder.html', {'search_url': search_url, 'form': form, 'space': space_obj})
 
 
 def searchSpaces(request):
+    search_url = request.path
     searchTerm = request.GET.get('searchSpace')
     selected_filters_list = request.GET.getlist('filter')
     # Convierte la lista en una cadena separada por comas
@@ -149,7 +153,7 @@ def searchSpaces(request):
     if messages.get_messages(request):
         success_message = messages.get_messages(request).__str__()
 
-    return render(request, 'searching.html', {'searchTerm': searchTerm, 'spaces': spaces, 'success_message': success_message})
+    return render(request, 'searching.html', {'search_url': search_url, 'searchTerm': searchTerm, 'spaces': spaces, 'success_message': success_message})
 
 
 @login_required       
@@ -160,6 +164,7 @@ def logoutAccount(request):
 
 @unauthenticated_user
 def login(request):
+    login_url = request.path
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -170,11 +175,12 @@ def login(request):
         else:
             messages.info(request, 'Usuario o contraseña son incorrectos')
             return redirect('login')
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'login_url': login_url})
 
 
 @unauthenticated_user
 def register(request):
+    signup_url = request.path
     form = user_form()
     if request.method == 'POST':
         form = user_form(request.POST)
@@ -189,7 +195,7 @@ def register(request):
         else:
             messages.error(request, 'Por favor, verifica que tu contraseña cumpla con los siguientes requisitos:')
         
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'signup.html', {'form': form, 'signup_url': signup_url})
 
 
 def updateUser(request, pk):
