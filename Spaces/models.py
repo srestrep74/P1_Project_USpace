@@ -18,7 +18,7 @@ class Comment(models.Model):
     id = models.AutoField(primary_key=True, unique=True, editable=False)
     rating = models.IntegerField(null=False, default=0)
     space = models.ForeignKey(Space,null=True, on_delete=models.CASCADE)
-    user = models.ForeignKey(User,null=True, on_delete=models.CASCADE )
+    user = models.ForeignKey(User, null=True, on_delete=models.CASCADE )
     comment = models.CharField(max_length=500)
     create_date = models.DateField(null=True, auto_now_add=True)
 
