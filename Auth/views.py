@@ -186,6 +186,8 @@ def register(request):
             user_m.objects.create(user=_user, username=_user.username, email=_user.email)
             messages.success(request, '¡Hola, ' + form.cleaned_data.get('username') + '! Tu cuenta ha sido creada exitosamente, ahora puedes inciar sesión.')
             return redirect('login')
+        else:
+            messages.error(request, 'Por favor, verifica que tu contraseña cumpla con los siguientes requisitos:')
         
     return render(request, 'signup.html', {'form': form})
 
