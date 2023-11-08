@@ -93,10 +93,10 @@ WSGI_APPLICATION = 'USpace.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DB_NAME_T'),
-        'USER': env('DB_USER_T'),
-        'PASSWORD': env('DB_PASSWORD_T'),
-        'HOST': env('DB_HOST_T'),
+        'NAME': env('DB_NAME'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
         'PORT': 3306,
     }
 }
