@@ -10,6 +10,7 @@ const map = L.map('map', {
     maxBoundsViscosity: 0.5, // Ajusta la viscosidad de los límites
     minZoom: 16, // Ajusta el nivel de zoom inicial
     dragging: true,
+    zoomControl: false
 }).setView([6.20018,-75.57845], 20); // Ajusta el nivel de zoom
 
 // Agregar la capa base de OpenStreetMap

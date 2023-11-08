@@ -1,6 +1,6 @@
 {% load static %}
 <hr class="mt-8">
-<p class="text-2xl text-gray-900 dark:text-white text-center mt-4">Fecha de filtro: {{ filter_date }}</p>
+<p class="text-2xl text-gray-900 dark:text-white text-center mt-4">Fecha de filtro: {{ filter_date }}. Reporte de ocupación del campus por USpace</p>
 <hr class="mt-8">
 <div class='container_ac mt-8'>
   <h6 class="text-4xl font-extrabold dark:text-white text-center">Ocupaciones por hora</h6>
@@ -12,9 +12,6 @@
   </figure>
 </div>
 <hr class="mt-8">
-<div class='container_ac mt-8'>
-  <h6 class="text-4xl font-extrabold dark:text-white text-center">Top 5 espacios más utilizados desde {{ filter_date }} hasta hoy</h6>
-</div>
 <div class='occu'>
   <div class="image-container mx-auto">
     <figure class="max-w-lg">
@@ -38,6 +35,9 @@
   </div>
 </div>
 <br/>
+<div class='container_ac mt-8'>
+  <h6 class="text-4xl font-extrabold dark:text-white text-center">Top 5 espacios más utilizados desde {{ filter_date }} hasta hoy</h6>
+</div>
 <br/>
 <div class='occu_actual'>
   <div class="image-container mx-auto">
