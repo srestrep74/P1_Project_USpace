@@ -4,7 +4,7 @@
 
 </div>
 
-This is a web application that allows people within the EAFIT University (students, employees, and visitors) to know the real-time occupations of the spaces within the University.
+This is a web application that uses IoT devices that allow people within the EAFIT University (students, employees, and visitors) to know the real-time occupations of the spaces within the University.
 
 ## Requirements
 
